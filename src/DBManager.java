@@ -1,10 +1,10 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBManager
 {
     private static Connection DB = null;
+    private static Statement stmt = null;
+    private static ResultSet rs = null;
 
 
     public static void connectDatabase()
@@ -16,8 +16,10 @@ public class DBManager
         {
             Class.forName("com.mysql.cj.jdbc.Driver");
             System.out.print("Try establishing database connection......");
-            //connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/his?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
+            //opening database connection to MySQL server
             DB = DriverManager.getConnection(url,user,pwd);
+            //getting Statement object to be ready for query execution
+            stmt = DB.createStatement();
             if(DB != null)
                 System.out.println("Database Connected");
             else
@@ -42,7 +44,21 @@ public class DBManager
         }
     }
 
-    public static void userLogin(String username, String password)
+    public static void userLogin(String username, String password) throws SQLException
     {
+        String queryUsername = "username = \'" + username + "\'";
+        String queryPassword = " AND password = \'" + password + "\';";
+        String query = "SELECT userID,fName,lName,role FROM users WHERE " + queryUsername + queryPassword;
+        //executing select query
+        rs = stmt.executeQuery(query);
+
+        while(rs.next())
+        {
+            int userID = rs.getInt(1);
+            String firstName = rs.getString(2);
+            String lastName = rs.getString(3);
+            String role = rs.getString(4);
+            System.out.println(userID + firstName + lastName + role);
+        }
     }
 }
