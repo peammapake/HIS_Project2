@@ -9,7 +9,8 @@ public class HISfacade
         DBManager.connectDatabase();
         username = IOUtils.getString("Please enter username: ");
         password = IOUtils.getString("Please enter password: ");
-        DBManager.userLogin
+
+        DBManager.disconnectDatabase();
 
     }
 }
