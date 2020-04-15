@@ -1,4 +1,5 @@
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,13 +26,16 @@ public abstract class Staff
      * use user information from database
      * @param userInfo      user information from SQL database
      */
-    public Staff(ResultSet userInfo)
+    public Staff(ResultSet userInfo) throws SQLException
     {
-
+        int staffID = userInfo.getInt(1);
+        String firstName = userInfo.getString(2);
+        String lastName = userInfo.getString(3);
+        String role = userInfo.getString(4);
     }
 
     /**
-     * Abstract method show option available in each specific role.s
+     * Abstract method show option available in each specific roles
      */
     public abstract void promptMenu();
 
