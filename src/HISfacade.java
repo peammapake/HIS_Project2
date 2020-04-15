@@ -1,16 +1,31 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Hospital Information System aka HIS
+ * a program aimed to implement an application that closely resemble real world HIS
+ * HISfacade act as a facade class for the program and also the main face in interacting with user
+ *
+ * Create by YAKKIN_TONKATSU
+ */
 public class HISfacade
 {
+    /** User instance created in prepare for user login*/
     private Staff user = null;
+
+    /**
+     * main class of the HIS application
+     * @param args
+     * @throws SQLException Throws SQL error message
+     */
     public static void main(String[] args) throws SQLException
     {
         String username;
         String password;
-        ResultSet userInfo = null;
+        ResultSet userInfo = null; //Collect user information from MySQL database
         System.out.println("Welcome to Hospital Information System");
         DBManager.connectDatabase();
+        //Will loop until the user successfully login
         while(true)
         {
             username = IOUtils.getString("Please enter username: ");
@@ -33,6 +48,11 @@ public class HISfacade
 
     }
 
+    /**
+     * Prepare all the necessary data from database into objects
+     * @param userInfo get the current user information to identify the user type
+     * @throws SQLException in case error happen with ResultSet
+     */
     private static void initialize(ResultSet userInfo) throws SQLException
     {
         //user = new Staff(userInfo);

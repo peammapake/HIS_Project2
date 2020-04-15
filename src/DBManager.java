@@ -1,15 +1,23 @@
 import javax.xml.transform.Result;
 import java.sql.*;
 
+/**
+ * Database Manager class responsible for all communication
+ * with the Hospital Information Database
+ */
 public class DBManager
 {
+    /**Object responsible for database connection*/
     private static Connection DB = null;
+    /**Object needed for communication with database*/
     private static Statement stmt = null;
-    private static ResultSet rs = null;
 
-
+    /**
+     * Establish database connection
+     */
     public static void connectDatabase()
     {
+        //DO NOT CHANGE: responsible for database login
         String url = "jdbc:mysql://remotemysql.com:3306/gRDM5lyOKB";
         String user = "gRDM5lyOKB";
         String pwd = "zTKv1VSG7W";
@@ -30,6 +38,10 @@ public class DBManager
             e.printStackTrace();
         }
     }
+
+    /**
+     * Terminate database communication
+     */
     public static void disconnectDatabase()
     {
         try
@@ -45,13 +57,20 @@ public class DBManager
         }
     }
 
+    /**
+     * Find the user from the database and collect the user data if exist
+     * @param username the username of the user logging in
+     * @param password the password of the user logging in
+     * @return return User information in ResultSet format
+     * @throws SQLException In case there's an error in MySQL query
+     */
     public static ResultSet userLogin(String username, String password) throws SQLException
     {
-        int count = 0;
+        int count = 0; //In case there are duplicate user
         String queryUsername = "username = \'" + username + "\'";
         String queryPassword = " AND password = \'" + password + "\';";
         String query = "SELECT userID,fName,lName,role FROM users WHERE " + queryUsername + queryPassword;
-        //executing select query
+        //executing the selected query
         ResultSet userRS = stmt.executeQuery(query);
 
         while(userRS.next())
@@ -67,6 +86,7 @@ public class DBManager
             }
             System.out.println("Welcome " + firstName + " " + lastName);
         }
+        //If user not found return null, this mean the username or password might be wrong
         if(count == 0)
         {
             System.out.println("Sorry: User not found, please try again");
@@ -75,6 +95,11 @@ public class DBManager
         return userRS;
     }
 
+    /**
+     * Get all the doctors registered in the database
+     * @return return doctors information in ResultSet format
+     * @throws SQLException
+     */
     public static ResultSet getDoctorList() throws SQLException
     {
         String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = 'DOCTOR';";
@@ -82,6 +107,11 @@ public class DBManager
         return doctorRS;
     }
 
+    /**
+     * get all the patients registered within the database
+     * @return patients information in ResultSet format
+     * @throws SQLException
+     */
     public static ResultSet getPatientList() throws SQLException
     {
         String queryPatients = "SELECT * FROM patients;";
