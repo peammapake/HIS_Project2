@@ -46,19 +46,37 @@ public class DBManager
 
     public static void userLogin(String username, String password) throws SQLException
     {
+        int count = 0;
         String queryUsername = "username = \'" + username + "\'";
         String queryPassword = " AND password = \'" + password + "\';";
         String query = "SELECT userID,fName,lName,role FROM users WHERE " + queryUsername + queryPassword;
         //executing select query
-        rs = stmt.executeQuery(query);
-
+        try
+        {
+            rs = stmt.executeQuery(query);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
         while(rs.next())
         {
+            count ++;
             int userID = rs.getInt(1);
             String firstName = rs.getString(2);
             String lastName = rs.getString(3);
             String role = rs.getString(4);
-            System.out.println(userID + firstName + lastName + role);
         }
+        if(count <= 1)
+        {
+            System.out.println("Error: system found duplicate users system terminated");
+            System.exit(1);
+        }
+    }
+
+    public static ResultSet getDoctors()
+    {
+        ResultSet doctorsRS = null;
+
+
     }
 }
