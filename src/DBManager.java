@@ -45,7 +45,7 @@ public class DBManager
         }
     }
 
-    public static boolean userLogin(String username, String password) throws SQLException
+    public static ResultSet userLogin(String username, String password) throws SQLException
     {
         int count = 0;
         String queryUsername = "username = \'" + username + "\'";
@@ -57,10 +57,8 @@ public class DBManager
         while(userRS.next())
         {
             count++;
-            int userID = userRS.getInt(1);
             String firstName = userRS.getString(2);
             String lastName = userRS.getString(3);
-            String role = userRS.getString(4);
             //In case there are duplicate user, extreme case that could happen during user registration
             if(count > 1)
             {
@@ -72,9 +70,9 @@ public class DBManager
         if(count == 0)
         {
             System.out.println("Sorry: User not found, please try again");
-            return false;
+            return null;
         }
-        return true;
+        return userRS;
     }
 
     public static ResultSet getDoctorList() throws SQLException

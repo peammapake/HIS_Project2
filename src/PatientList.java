@@ -2,5 +2,8 @@ import java.util.ArrayList;
 
 public class PatientList
 {
-    private ArrayList<Patient>
+    private ArrayList<Patient> patients = new ArrayList<Patient>();
+
+    public PatientList()
+    {}
 }
