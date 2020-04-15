@@ -83,4 +83,11 @@ public class DBManager
         ResultSet doctorRS = stmt.executeQuery(queryDoctors);
         return doctorRS;
     }
+
+    public static ResultSet getPatientList() throws SQLException
+    {
+        String queryPatients = "SELECT * FROM patients;";
+        ResultSet patientRS = stmt.executeQuery(queryPatients);
+        return patientRS;
+    }
 }

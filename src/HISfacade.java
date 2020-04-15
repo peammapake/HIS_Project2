@@ -16,7 +16,22 @@ public class HISfacade
             if(DBManager.userLogin(username, password))
                 break;
         }
+        System.out.print("Load data, please wait...........");
+        try
+        {
+            initialize();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        System.out.println("Success!");
         DBManager.disconnectDatabase();
 
+    }
+
+    private static void initialize() throws SQLException
+    {
+        DBManager.getDoctorList();
+        DBManager.getPatientList();
     }
 }
