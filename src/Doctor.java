@@ -15,7 +15,7 @@ public class Doctor extends Staff
     private Patient currentPatient;
 
     /** Static list of doctors in the system*/
-    public static ArrayList<Doctor> doctorList = new ArrayList<>();
+    public static ArrayList<Doctor> doctorArrayList = new ArrayList<>();
 
     /**
      * Constructor method create instance of doctor
@@ -26,6 +26,8 @@ public class Doctor extends Staff
     public Doctor(ResultSet userInfo) throws SQLException
     {
         super(userInfo);
+        doctorArrayList.add(this);
+
     }
 
     /**
@@ -47,7 +49,7 @@ public class Doctor extends Staff
 
     /**
      * Select patient from the list and store in currentPatient
-     * @param index
+     * @param index     index of patient in the list
      */
     public void selectPatient(int index)
     {
@@ -129,7 +131,7 @@ public class Doctor extends Staff
      */
     public static ArrayList<Doctor> getDoctorList()
     {
-        return doctorList;
+        return doctorArrayList;
     }
 
     /**

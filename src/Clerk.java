@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Clerk extends Staff
 {
-    private static ArrayList<Bill> bills= new ArrayList<Bill>();
+    private static ArrayList<Bill> bills = new ArrayList<Bill>();
 
     public static ArrayList<Clerk> clerkArrayList = new ArrayList<Clerk>();
 
@@ -17,6 +17,7 @@ public class Clerk extends Staff
     public Clerk(ResultSet userInfo) throws SQLException
     {
         super(userInfo);
+        clerkArrayList.add(this);
     }
 
     @Override
