@@ -44,7 +44,12 @@ public class Doctor extends Staff
      */
     public void showPatients()
     {
-
+        for (int i = 0; i < patients.getSize(); i++)
+        {
+            Patient patient = patients.getPatient(i);
+            String patientName = patient.getFirstName() + " " + patient.getLastName();
+            System.out.println((i + 1) + patientName);
+        }
     }
 
     /**
@@ -53,7 +58,7 @@ public class Doctor extends Staff
      */
     public void selectPatient(int index)
     {
-
+        currentPatient = patients.getPatient(index);
     }
 
     /**
@@ -69,7 +74,17 @@ public class Doctor extends Staff
      */
     public void recordInformation()
     {
+        System.out.println("---- Record Information ----");
+        System.out.println("1 : Record Symptoms");
+        System.out.println("2 : Record Treatment");
+        System.out.println("3 : Record Lab test and result");
+        System.out.println("4 : Record Diagnosis");
+        System.out.println("5 : Prescribe");
+        int optionSelect = IOUtils.getInteger("Enter number of option : ");
+        switch (optionSelect)
+        {
 
+        }
     }
 
     /**
