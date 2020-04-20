@@ -1,5 +1,6 @@
 import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Database Manager class responsible for all communication
@@ -96,7 +97,8 @@ public class DBManager
     }
 
     /**
-     * Get all the doctors registered in the database
+     * Get all the staff registered in the database
+     * @param role To specify the staff role that needed query
      * @return return doctors information in ResultSet format
      * @throws SQLException
      */
@@ -117,5 +119,43 @@ public class DBManager
         String queryPatients = "SELECT * FROM patients;";
         ResultSet patientRS = stmt.executeQuery(queryPatients);
         return patientRS;
+    }
+
+    /**
+     * Add new billing into the database, clerk can then access
+     * these data to generate bill for patient
+     * @param bill bill object obtained after discharging patient
+     */
+    public static void addBill(Bill bill)
+    {
+        String[] name = bill.getPatientName().split(" ");
+        ArrayList<String> treatments = bill.getTreatments();
+        ArrayList<String> labTest = bill.getLabTest();
+        ArrayList<String> prescription = bill.getPrescription();
+
+        String queryBill = "INSERT INTO `bills`(`bill_fName`, `bill_lName`, `patientID`, `treatmentList`, `labTestList`, `prescriptionList`) VALUES (";
+        queryBill += "'" + name[0] + "','" + name[1] + "','";
+        for(int i = 0; i < treatments.size(); i++)
+        {
+            queryBill += treatments.get(i);
+            if(i+1 != treatments.size())
+                queryBill += "|";
+        }
+        queryBill += "','";
+        for(int i = 0; i < labTest.size(); i++)
+        {
+            queryBill += labTest.get(i);
+            if(i+1 != labTest.size())
+                queryBill += "|";
+        }
+        queryBill += "','";
+        for(int i = 0; i < prescription.size(); i++)
+        {
+            queryBill += prescription.get(i);
+            if(i+1 != prescription.size())
+                queryBill += "|";
+        }
+        queryBill += "');";
+        System.out.println(queryBill); //still testing
     }
 }
