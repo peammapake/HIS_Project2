@@ -36,7 +36,9 @@ public class Doctor extends Staff
     @Override
     public void promptMenu()
     {
-
+        System.out.println("1 - Patient lookup");
+        System.out.println("2 - Discharge patient");
+        System.out.println("3 - Logout");
     }
 
     /**

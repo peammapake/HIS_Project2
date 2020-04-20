@@ -23,7 +23,8 @@ public class Clerk extends Staff
     @Override
     public void promptMenu()
     {
-
+        System.out.println("1 - View billing list");
+        System.out.println("2 - Logout");
     }
 
     public void showBills()

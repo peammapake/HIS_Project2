@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class HISfacade
 {
     /** User instance created in prepare for user login*/
-    private Staff user = null;
+    public static Staff user = null;
 
     /**
      * main class of the HIS application
@@ -55,8 +55,20 @@ public class HISfacade
      */
     private static void initialize(ResultSet userInfo) throws SQLException
     {
-        //user = new Staff(userInfo);
-        DBManager.getDoctorList();
-        DBManager.getPatientList();
+        //Iterate to the first row in result set *Should have only 1 row*
+        userInfo.first();
+        String userRole = userInfo.getString(4);
+        switch(userRole)
+        {
+            case "DOCTOR":
+                user = new Doctor(userInfo);
+                break;
+            case "NURSE":
+                user = new Nurse(userInfo);
+                break;
+            case "CLERK":
+                user = new Clerk(userInfo);
+                break;
+        }
     }
 }

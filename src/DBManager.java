@@ -100,11 +100,11 @@ public class DBManager
      * @return return doctors information in ResultSet format
      * @throws SQLException
      */
-    public static ResultSet getDoctorList() throws SQLException
+    public static ResultSet getStaffList(String role) throws SQLException
     {
-        String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = 'DOCTOR';";
-        ResultSet doctorRS = stmt.executeQuery(queryDoctors);
-        return doctorRS;
+        String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\';";
+        ResultSet staffRS = stmt.executeQuery(queryDoctors);
+        return staffRS;
     }
 
     /**
