@@ -1,7 +1,6 @@
 import java.util.Date;
 
-public class Admission
-{
+public class Admission {
     /**
      * Date of admission
      */
@@ -34,16 +33,12 @@ public class Admission
     /**
      * Constructor
      */
-    public Admission()
-    {
+    public Admission() {
 
     }
 
 
-
-
-    public Date getAdmitDate()
-    {
+    public Date getAdmitDate() {
         return admitDate;
     }
 
@@ -52,9 +47,29 @@ public class Admission
         return symptoms;
     }
 
+    public String getSymptom(int index)
+    {
+        return symptoms.getSymptom(index);
+    }
+
+    public int getSymptomsSize()
+    {
+        return symptoms.getSymptomSize();
+    }
+
     public TreatmentList getTreatments()
     {
         return treatments;
+    }
+
+    public String getTreatment(int index)
+    {
+        return treatments.getTreatment(index);
+    }
+
+    public int getTreatmentsSize()
+    {
+        return treatments.getTreatmentsSize();
     }
 
     public LabTestList getLabTests()

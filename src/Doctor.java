@@ -82,19 +82,20 @@ public class Doctor extends Staff
         System.out.println("3 : Record Lab test and result");
         System.out.println("4 : Record Diagnosis");
         System.out.println("5 : Prescribe");
+        System.out.println("----------------------------");
         int optionSelect = IOUtils.getInteger("Enter number of option : ");
         switch (optionSelect)
         {
-
+            // TODO
         }
     }
 
     /**
-     * Discharge patient from the system
+     * Discharge currently selected patient from the system
      */
     public void dischargePatient()
     {
-
+        // Should Create BillManager class to call and create Bill in that class
     }
 
     /**
@@ -102,6 +103,23 @@ public class Doctor extends Staff
      */
     public void printPatientInfo()
     {
+        Admission patientAdmission = currentPatient.getAdmission();
+        System.out.println("---- Patient information ----");
+        System.out.println("Patient ID : " + currentPatient.getPatientID());
+        System.out.println("Name : " + currentPatient.getFirstName() + " " + currentPatient.getLastName());
+        System.out.println("Gender : " + currentPatient.getSex());
+        System.out.println("Symptoms : ");
+        for (int i = 0 ; i < patientAdmission.getSymptomsSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + patientAdmission.getSymptom(i));
+        }
+        System.out.println("Treatment : ");
+        for (int i = 0 ; i < patientAdmission.getTreatmentsSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + patientAdmission.getTreatment(i));
+        }
+        System.out.println("Lab test and result : ");
+
 
     }
 
