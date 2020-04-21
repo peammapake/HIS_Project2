@@ -77,6 +77,15 @@ public class Admission {
         return labTests;
     }
 
+    public String getLabTest(int index)
+    {
+        return labTests.getLabTest(index);
+    }
+    public int getLabTestSize()
+    {
+        return labTests.getLabTestSize();
+    }
+
     public Prescriptions getPrescriptions()
     {
         return prescriptions;

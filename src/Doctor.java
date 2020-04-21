@@ -119,6 +119,10 @@ public class Doctor extends Staff
             System.out.println("\t" + i + " - " + patientAdmission.getTreatment(i));
         }
         System.out.println("Lab test and result : ");
+        for (int i = 0 ; i < patientAdmission.getLabTestSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + patientAdmission.getLabTest(i));
+        }
 
 
     }
