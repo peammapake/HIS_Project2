@@ -156,6 +156,30 @@ public class DBManager
                 queryBill += "|";
         }
         queryBill += "');";
-        System.out.println(queryBill); //still testing
+        System.out.println(queryBill); //still testing 
+    }
+
+    /**
+     * Query bills from database that had yet to be paid.
+     * Then display them in a readable list format
+     * @return ResultSet of the unpaid bills
+     * @throws SQLException
+     */
+    public static ResultSet getUnpaidBills() throws SQLException
+    {
+        int count = 1;
+        String queryBill = "SELECT * FROM bills WHERE payDate IS NULL";
+        ResultSet billRS = stmt.executeQuery(queryBill);
+        while(billRS.next())
+        {
+            Timestamp regDate = billRS.getTimestamp(2);
+            String firstName = billRS.getString(4);
+            String lastName = billRS.getString(5);
+            int patientID = billRS.getInt(6);
+            System.out.println(count + " - ID:" + patientID + "\t" + firstName + "\t" + lastName + "\tDate: " + regDate);
+            count++;
+        }
+        billRS.absolute(0); //Initialize the row back to the start before return
+        return billRS;
     }
 }
