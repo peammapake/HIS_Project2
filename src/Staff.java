@@ -18,6 +18,9 @@ public abstract class Staff
     /** last name of staff */
     protected String lastName;
 
+    /** The role of the staff*/
+    protected String role;
+
     /** static List of every staff */
     static protected ArrayList<Staff> staffArrayList = new ArrayList<Staff>();
 
@@ -28,16 +31,21 @@ public abstract class Staff
      */
     public Staff(ResultSet userInfo) throws SQLException
     {
-        int staffID = userInfo.getInt(1);
-        String firstName = userInfo.getString(2);
-        String lastName = userInfo.getString(3);
-        String role = userInfo.getString(4);
+        staffID = userInfo.getInt(1);
+        firstName = userInfo.getString(2);
+        lastName = userInfo.getString(3);
+        role = userInfo.getString(4);
     }
 
     /**
      * Abstract method show option available in each specific roles
      */
     public abstract void promptMenu();
+
+    /**
+     * Abstract method preparing data from database as needed for each staff type
+     */
+    public abstract void loadStaffData() throws SQLException;
 
     public String getFirstName()
     {
@@ -47,5 +55,10 @@ public abstract class Staff
     public String getLastName()
     {
         return lastName;
+    }
+
+    public int getStaffID()
+    {
+        return staffID;
     }
 }

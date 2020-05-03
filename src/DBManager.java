@@ -160,26 +160,21 @@ public class DBManager
     }
 
     /**
-     * Query bills from database that had yet to be paid.
-     * Then display them in a readable list format
-     * @return ResultSet of the unpaid bills
+     * Query bills from database, can get either already paid bill or
+     * unpaid bill as designated by the input choice
+     * @param paid choosing whether to get paid or unpaid bill list.
+     * @return
      * @throws SQLException
      */
-    public static ResultSet getUnpaidBills() throws SQLException
+    public static ResultSet getBills(boolean paid) throws SQLException
     {
         int count = 1;
-        String queryBill = "SELECT * FROM bills WHERE payDate IS NULL";
+        String queryBill = null;
+        if(paid)
+            queryBill = "SELECT * FROM bills WHERE payDate IS NOT NULL";
+        else
+            queryBill = "SELECT * FROM bills WHERE payDate IS NULL";
         ResultSet billRS = stmt.executeQuery(queryBill);
-        while(billRS.next())
-        {
-            Timestamp regDate = billRS.getTimestamp(2);
-            String firstName = billRS.getString(4);
-            String lastName = billRS.getString(5);
-            int patientID = billRS.getInt(6);
-            System.out.println(count + " - ID:" + patientID + "\t" + firstName + "\t" + lastName + "\tDate: " + regDate);
-            count++;
-        }
-        billRS.absolute(0); //Initialize the row back to the start before return
         return billRS;
     }
 }

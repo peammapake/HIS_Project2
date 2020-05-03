@@ -49,7 +49,8 @@ public class HISfacade
     }
 
     /**
-     * Prepare all the necessary data from database into objects
+     * Prepare all the necessary data
+     * from database into objects
      * @param userInfo get the current user information to identify the user type
      * @throws SQLException in case error happen with ResultSet
      */
@@ -71,4 +72,5 @@ public class HISfacade
                 break;
         }
     }
+
 }
