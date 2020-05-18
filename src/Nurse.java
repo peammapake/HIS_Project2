@@ -43,6 +43,12 @@ public class Nurse extends Staff {
         System.out.println("3 - Logout");
     }
 
+    @Override
+    public void loadStaffData() throws SQLException
+    {
+
+    }
+
     /**
      * register patient into system
      */

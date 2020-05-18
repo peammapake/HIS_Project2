@@ -36,24 +36,32 @@ public class Clerk extends Staff
     {
         ResultSet unpaidRS = null;
         ResultSet paidRS = null;
-        unpaidRS = DBManager.getBills(true);
-        paidRS = DBManager.getBills(false);
-
+        unpaidRS = DBManager.getBills(false);
         while(unpaidRS.next())
-        {
-            unpaidBills.add(new Bill(unpaidRS,false));
-        }
-        while(paidRS.next())
         {
             int billID = unpaidRS.getInt(1);
             Timestamp regDate = unpaidRS.getTimestamp(2);
-            Timestamp payDate = unpaidRS.getTimestamp(3);
             String firstName = unpaidRS.getString(4);
             String lastName = unpaidRS.getString(5);
             int patientID = unpaidRS.getInt(6);
             String treatmentList = unpaidRS.getString(7);
             String labTestList = unpaidRS.getString(8);
             String prescriptionList = unpaidRS.getString(9);
+            unpaidBills.add(new Bill(billID,regDate,firstName,lastName,patientID,treatmentList,labTestList,prescriptionList));
+        }
+        paidRS = DBManager.getBills(true);
+        while(paidRS.next())
+        {
+            int billID = paidRS.getInt(1);
+            Timestamp regDate = paidRS.getTimestamp(2);
+            Timestamp payDate = paidRS.getTimestamp(3);
+            String firstName = paidRS.getString(4);
+            String lastName = paidRS.getString(5);
+            int patientID = paidRS.getInt(6);
+            String treatmentList = paidRS.getString(7);
+            String labTestList = paidRS.getString(8);
+            String prescriptionList = paidRS.getString(9);
+            paidBills.add(new Bill(billID,regDate,payDate,firstName,lastName,patientID,treatmentList,labTestList,prescriptionList));
         }
 
     }

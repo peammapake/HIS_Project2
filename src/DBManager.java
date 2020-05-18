@@ -12,6 +12,8 @@ public class DBManager
     private static Connection DB = null;
     /**Object needed for communication with database*/
     private static Statement stmt = null;
+    /**Object responsible for querying information from database*/
+    private static ResultSet RS = null;
 
     /**
      * Establish database connection
@@ -47,6 +49,10 @@ public class DBManager
     {
         try
         {
+            if(RS != null)
+                RS.close();
+            if(stmt != null)
+                stmt.close();
             if(DB != null)
             {
                 DB.close();
@@ -63,37 +69,43 @@ public class DBManager
      * @param username the username of the user logging in
      * @param password the password of the user logging in
      * @return return User information in ResultSet format
-     * @throws SQLException In case there's an error in MySQL query
      */
-    public static ResultSet userLogin(String username, String password) throws SQLException
+    public static ResultSet userLogin(String username, String password)
     {
         int count = 0; //In case there are duplicate user
         String queryUsername = "username = \'" + username + "\'";
         String queryPassword = " AND password = \'" + password + "\';";
         String query = "SELECT userID,fName,lName,role FROM users WHERE " + queryUsername + queryPassword;
+        RS = null;
         //executing the selected query
-        ResultSet userRS = stmt.executeQuery(query);
-
-        while(userRS.next())
+        try
         {
-            count++;
-            String firstName = userRS.getString(2);
-            String lastName = userRS.getString(3);
-            //In case there are duplicate user, extreme case that could happen during user registration
-            if(count > 1)
+            RS = stmt.executeQuery(query);
+            while(RS.next())
             {
-                System.out.println("Error: found duplicate user, please contact admin for further analysis");
-                System.exit(0);
+                count++;
+                String firstName = RS.getString(2);
+                String lastName = RS.getString(3);
+                //In case there are duplicate user, extreme case that could happen during user registration
+                if(count > 1)
+                {
+                    System.out.println("Error: found duplicate user, please contact admin for further analysis");
+                    System.exit(0);
+                }
+                System.out.println("Welcome " + firstName + " " + lastName);
             }
-            System.out.println("Welcome " + firstName + " " + lastName);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
         }
+
         //If user not found return null, this mean the username or password might be wrong
         if(count == 0)
         {
-            System.out.println("Sorry: User not found, please try again");
+
             return null;
         }
-        return userRS;
+        return RS;
     }
 
     /**
@@ -102,11 +114,18 @@ public class DBManager
      * @return return doctors information in ResultSet format
      * @throws SQLException
      */
-    public static ResultSet getStaffList(String role) throws SQLException
+    public static ResultSet getStaffList(String role)
     {
-        String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\';";
-        ResultSet staffRS = stmt.executeQuery(queryDoctors);
-        return staffRS;
+        RS = null;
+        try
+        {
+            String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\';";
+            RS = stmt.executeQuery(queryDoctors);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return RS;
     }
 
     /**
@@ -114,11 +133,18 @@ public class DBManager
      * @return patients information in ResultSet format
      * @throws SQLException
      */
-    public static ResultSet getPatientList() throws SQLException
+    public static ResultSet getPatientList()
     {
+        RS = null;
         String queryPatients = "SELECT * FROM patients;";
-        ResultSet patientRS = stmt.executeQuery(queryPatients);
-        return patientRS;
+        try
+        {
+            RS = stmt.executeQuery(queryPatients);
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return RS;
     }
 
     /**
@@ -166,15 +192,22 @@ public class DBManager
      * @return
      * @throws SQLException
      */
-    public static ResultSet getBills(boolean paid) throws SQLException
+    public static ResultSet getBills(boolean paid)
     {
         int count = 1;
+        RS = null;
         String queryBill = null;
         if(paid)
             queryBill = "SELECT * FROM bills WHERE payDate IS NOT NULL";
         else
             queryBill = "SELECT * FROM bills WHERE payDate IS NULL";
-        ResultSet billRS = stmt.executeQuery(queryBill);
-        return billRS;
+        try
+        {
+            RS = stmt.executeQuery(queryBill);
+        } catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return RS;
     }
 }

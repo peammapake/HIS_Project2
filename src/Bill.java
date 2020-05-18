@@ -13,28 +13,35 @@ public class Bill
     private ArrayList<String> labTest = new ArrayList<String>();
     private ArrayList<String> prescription = new ArrayList<String>();
 
-    /**
-     * Bill constructor containing information for each individual bill coming
-     * from database. Can contain either paid or unpaid bills
-     * @param billRS ResultSet of the specific bill
-     * @param billPaid designated the bill status whether it is paid or not
-     * @throws SQLException
+    /** Constructor for bill, an Overloading method for constructing unpaid bill
+     * @param id Bill id from database
+     * @param reg Register date of the bill
+     * @param fName Patient first name
+     * @param lName Patient last name
+     * @param pId Patient ID
+     * @param treatment List of treatment in string
+     * @param labTest List of lab test in string
+     * @param prescription List of medicine prescription in string
      */
-    public Bill(ResultSet billRS, boolean billPaid) throws SQLException
+    public Bill(int id, Timestamp reg, String fName, String lName, int pId, String treatment, String labTest, String prescription)
     {
-        billID = billRS.getInt(1);
-        regDate = billRS.getTimestamp(2);
 
-        if(billPaid)
-            payDate = billRS.getTimestamp(3);
+    }
 
-        String firstName = billRS.getString(4);
-        String lastName = billRS.getString(5);
-        int patientID = billRS.getInt(6);
+    /** Constructor for bill, an Overloading method for constructing paid bill
+     * @param id Bill id from database
+     * @param reg Register date of the bill
+     * @param pay Pay date of the bill
+     * @param fName Patient first name
+     * @param lName Patient last name
+     * @param pId Patient ID
+     * @param treatment List of treatment in string
+     * @param labTest List of lab test in string
+     * @param prescription List of medicine prescription in string
+     */
+    public Bill(int id, Timestamp reg, Timestamp pay,String fName, String lName, int pId, String treatment, String labTest, String prescription)
+    {
 
-        String treatmentList = billRS.getString(7);
-        String labTestList = billRS.getString(8);
-        String prescriptionList = billRS.getString(9);
     }
 
     public String getPatientName()

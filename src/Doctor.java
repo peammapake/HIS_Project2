@@ -41,6 +41,12 @@ public class Doctor extends Staff
         System.out.println("3 - Logout");
     }
 
+    @Override
+    public void loadStaffData() throws SQLException
+    {
+
+    }
+
     /**
      * print list of patients assigned to this  doctor
      */
