@@ -55,4 +55,39 @@ public class Patient
     {
         return admission;
     }
+
+    public void printPatientInfo()
+    {
+        System.out.println("---- Patient information ----");
+        System.out.println("Patient ID : " + getPatientID());
+        System.out.println("Name : " + getFirstName() + " " + getLastName());
+        System.out.println("Gender : " + getSex());
+        System.out.println("Symptoms : ");
+        SymptomList symptoms = admission.getSymptoms();
+        for (int i = 0 ; i < symptoms.getSymptomSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + symptoms.getSymptom(i));
+        }
+        System.out.println("Treatment : ");
+        TreatmentList treatments = admission.getTreatments();
+        for (int i = 0 ; i < treatments.getTreatmentsSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + treatments.getTreatment(i));
+        }
+        System.out.println("Lab test and result : ");
+        LabTestList labTests = admission.getLabTests();
+        for (int i = 0 ; i < labTests.getLabTestSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + labTests.getLabTest(i));
+        }
+        System.out.println("Prescription : ");
+        Prescriptions prescriptions = admission.getPrescriptions();
+        for (int i = 0 ; i < prescriptions.getPrescriptionSize(); i++)
+        {
+            System.out.println("\t" + i + " - " + prescriptions.getMedicine(i));
+        }
+        System.out.println("Prescription : " + admission.getDiagnosis());
+        System.out.println("Assigned Doctor: " + admission.getAssignedDoctor());
+
+    }
 }

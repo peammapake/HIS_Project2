@@ -33,7 +33,8 @@ public class Admission {
     /**
      * Constructor
      */
-    public Admission() {
+    public Admission()
+    {
 
     }
 
@@ -52,38 +53,14 @@ public class Admission {
         return symptoms.getSymptom(index);
     }
 
-    public int getSymptomsSize()
-    {
-        return symptoms.getSymptomSize();
-    }
-
     public TreatmentList getTreatments()
     {
         return treatments;
     }
 
-    public String getTreatment(int index)
-    {
-        return treatments.getTreatment(index);
-    }
-
-    public int getTreatmentsSize()
-    {
-        return treatments.getTreatmentsSize();
-    }
-
     public LabTestList getLabTests()
     {
         return labTests;
-    }
-
-    public String getLabTest(int index)
-    {
-        return labTests.getLabTest(index);
-    }
-    public int getLabTestSize()
-    {
-        return labTests.getLabTestSize();
     }
 
     public Prescriptions getPrescriptions()
@@ -100,4 +77,5 @@ public class Admission {
     {
         return assignedDoctor;
     }
+
 }

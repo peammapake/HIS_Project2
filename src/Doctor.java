@@ -42,6 +42,15 @@ public class Doctor extends Staff
     }
 
     /**
+     * Abstract method preparing data from database as needed for each staff type
+     */
+    @Override
+    public void loadStaffData() throws SQLException
+    {
+        // TODO : Do it
+    }
+
+    /**
      * print list of patients assigned to this  doctor
      */
     public void showPatients()
@@ -103,27 +112,6 @@ public class Doctor extends Staff
      */
     public void printPatientInfo()
     {
-        Admission patientAdmission = currentPatient.getAdmission();
-        System.out.println("---- Patient information ----");
-        System.out.println("Patient ID : " + currentPatient.getPatientID());
-        System.out.println("Name : " + currentPatient.getFirstName() + " " + currentPatient.getLastName());
-        System.out.println("Gender : " + currentPatient.getSex());
-        System.out.println("Symptoms : ");
-        for (int i = 0 ; i < patientAdmission.getSymptomsSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + patientAdmission.getSymptom(i));
-        }
-        System.out.println("Treatment : ");
-        for (int i = 0 ; i < patientAdmission.getTreatmentsSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + patientAdmission.getTreatment(i));
-        }
-        System.out.println("Lab test and result : ");
-        for (int i = 0 ; i < patientAdmission.getLabTestSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + patientAdmission.getLabTest(i));
-        }
-
 
     }
 
