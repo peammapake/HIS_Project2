@@ -32,7 +32,10 @@ public class HISfacade
             password = IOUtils.getString("Please enter password: ");
             userInfo = DBManager.userLogin(username, password);
             if(userInfo == null)
+            {
+                System.out.println("Sorry: User not found, please try again");
                 continue;
+            }
             break;
         }
         System.out.print("Load data, please wait...........");
@@ -44,6 +47,7 @@ public class HISfacade
             e.printStackTrace();
         }
         System.out.println("Success!");
+
         DBManager.disconnectDatabase();
 
     }
@@ -63,14 +67,18 @@ public class HISfacade
         {
             case "DOCTOR":
                 user = new Doctor(userInfo);
+                user.loadStaffData();
                 break;
             case "NURSE":
                 user = new Nurse(userInfo);
+                user.loadStaffData();
                 break;
             case "CLERK":
                 user = new Clerk(userInfo);
+                user.loadStaffData();
                 break;
         }
+        userInfo.close();
     }
 
 }
