@@ -142,18 +142,17 @@ public class Clerk extends Staff
                     continue loop;
                 }
                 unpaidBills.get(billID).printBill();
+                String confirm = IOUtils.getString("Mark this bill as paid?(YES to confirm else to return): ");
+                if(confirm.equalsIgnoreCase("YES"))
+                {
+                    unpaidBills.get(billID).billPaid();
+                }
             }
+
+            break;
         }
 
     }
 
-    public void billPaid()
-    {
 
-    }
-
-    public void removeBill()
-    {
-
-    }
 }

@@ -74,7 +74,7 @@ public class DBManager
     {
         int count = 0; //In case there are duplicate user
         String queryUsername = "username = \'" + username + "\'";
-        String queryPassword = " AND password = \'" + password + "\';";
+        String queryPassword = " AND password = \'" + password + "\'";
         String query = "SELECT userID,fName,lName,role FROM users WHERE " + queryUsername + queryPassword;
         RS = null;
         //executing the selected query
@@ -119,7 +119,7 @@ public class DBManager
         RS = null;
         try
         {
-            String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\';";
+            String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\'";
             RS = stmt.executeQuery(queryDoctors);
         } catch (SQLException e)
         {
@@ -136,7 +136,7 @@ public class DBManager
     public static ResultSet getPatientList()
     {
         RS = null;
-        String queryPatients = "SELECT * FROM patients;";
+        String queryPatients = "SELECT * FROM patients";
         try
         {
             RS = stmt.executeQuery(queryPatients);
@@ -209,5 +209,21 @@ public class DBManager
             e.printStackTrace();
         }
         return RS;
+    }
+
+    public static void billPaid(Bill bill)
+    {
+        String query = "UPDATE bills SET payDate = ? WHERE billID = ?";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setTimestamp(1,bill.getPayDate());
+            prepareStmt.setInt(2,bill.getBillID());
+            prepareStmt.executeUpdate();
+            prepareStmt.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

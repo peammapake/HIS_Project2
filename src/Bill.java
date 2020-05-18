@@ -91,6 +91,21 @@ public class Bill
         System.out.println("-----------------------------------------------------------------------------------");
     }
 
+
+    public void billPaid()
+    {
+        if(payDate != null)
+        {
+            System.out.println("Error: This bill has been paid already");
+        }
+        else
+        {
+            payDate = new Timestamp(System.currentTimeMillis());
+            System.out.println("This bill is now paid (Timestamp:" + payDate + ")");
+            DBManager.billPaid(this);
+        }
+    }
+
     public int getBillID()
     {
         return billID;

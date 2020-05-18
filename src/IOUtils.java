@@ -29,6 +29,7 @@ public class IOUtils
            // chop off the terminator(s)
        return fullString;
     }
+
     /**
      * Asks for a string and returns it as the value of the function
      * @param   prompt    String to print, asking a question
@@ -54,6 +55,31 @@ public class IOUtils
        return inputString;
     }
 
+    /**
+     * Asks for a string and returns it as the value of the function
+     * The input will be in the same line with the display string.
+     * @param   prompt    String to print, asking a question
+     * @return  The string the user entered (maximum 100 chars long)
+     */
+    public static String getStringSameLine(String prompt)
+    {
+        String inputString;
+        int readBytes = 0;
+        byte buffer[] = new byte[200];
+        System.out.print(prompt);
+        try
+        {
+            readBytes = System.in.read(buffer,0,200);
+        }
+        catch (IOException ioe)
+        {
+            System.out.print("Input/output exception - Exiting");
+            System.exit(1);
+        }
+        inputString = new String(buffer);
+        inputString = stripTerminators(inputString);
+        return inputString;
+    }
 
     /**
      * Asks for an integer and returns it as the value of the function
@@ -121,10 +147,10 @@ public class IOUtils
      */
     public static String getDateTime()
     {
-	Date now = new Date();
-	SimpleDateFormat formatter = 
-              new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	return formatter.format(now);
+        Date now = new Date();
+        SimpleDateFormat formatter =
+                  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return formatter.format(now);
     }
 
 }
