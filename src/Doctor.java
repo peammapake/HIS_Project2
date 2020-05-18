@@ -76,9 +76,9 @@ public class Doctor extends Staff
     /**
      *  Admit selected patient to bed
      */
-    public void admitPatient()
+    public void admitPatient(Patient patient)
     {
-
+        patients.addPatient(patient);
     }
 
     /**

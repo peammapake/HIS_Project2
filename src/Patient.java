@@ -21,6 +21,16 @@ public class Patient
         admission = new Admission();
     }
 
+    public Patient(String firstName, String lastName, String sex, String address, int phone)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.sex = sex;
+        this.address = address;
+        this.phone = phone;
+        admission = new Admission();
+    }
+
     public int getPatientID()
     {
         return patientID;

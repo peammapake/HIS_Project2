@@ -8,12 +8,17 @@ public class PatientList
     {
 
     }
+    public void addPatient(Patient patient)
+    {
+        patients.add(patient);
+    }
 
     public Patient getPatient(int index)
     {
         Patient patient = patients.get(index);
         return patient;
     }
+
     public int getSize()
     {
         return patients.size();

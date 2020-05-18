@@ -49,8 +49,22 @@ public class Nurse extends Staff {
 
     }
 
-    public void registerPatient() {
-
+    public void registerPatient()
+    {
+        System.out.println("Enter new patient information");
+        String firstName = IOUtils.getString("First name: ");
+        String lastName = IOUtils.getString("Last name: ");
+        String sex = IOUtils.getString("Gender: ");
+        String address = IOUtils.getString("Address: ");
+        int phone = IOUtils.getInteger("Phone Number: ");
+        Patient patient = new Patient(firstName, lastName, sex, address, phone);
+        System.out.println("Doctor to assign");
+        for (int i = 0 ; i < Doctor.getDoctorList().size(); i++)
+        {
+            System.out.println((i+1) + " - " + Doctor.getDoctorList().get(i).getFullName());
+        }
+        int doctorIndex = IOUtils.getInteger("Select number of doctor") - 1;
+        assignDoctor(Doctor.getDoctorList().get(doctorIndex), patient);
     }
 
     /**
@@ -58,14 +72,17 @@ public class Nurse extends Staff {
      *
      * @param doctor doctor to assign
      */
-    private void assignDoctor(Doctor doctor) {
-
+    private void assignDoctor(Doctor doctor, Patient patient)
+    {
+        doctor.admitPatient(patient);
+        patient.getAdmission().setAssignedDoctor(doctor);
     }
 
     /**
      * Print every patient in the list
      */
-    public void showsPatients() {
+    public void showsPatients()
+    {
 
     }
 

@@ -78,4 +78,9 @@ public class Admission {
         return assignedDoctor;
     }
 
+    public void setAssignedDoctor(Doctor doctor)
+    {
+        assignedDoctor = doctor.getFullName();
+    }
+
 }
