@@ -49,17 +49,6 @@ public class Nurse extends Staff {
 
     }
 
-    /**
-     * Abstract method preparing data from database as needed for each staff type
-     */
-    @Override
-    public void loadStaffData() throws SQLException {
-
-    }
-
-    /**
-     * register patient into system
-     */
     public void registerPatient() {
 
     }
