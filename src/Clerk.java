@@ -66,7 +66,19 @@ public class Clerk extends Staff
 
     }
 
-    public void showBills()
+
+    public void showUnpaidBills()
+    {
+        for(Bill bill: unpaidBills)
+        {
+            int billID = bill.getBillID();
+            Timestamp regDate = bill.getRegisterDate();
+            String patientName = bill.getPatientName();
+            System.out.println("ID:" + billID + " Name:" + patientName + " Date:" + regDate);
+        }
+    }
+
+    public void showPaidBills()
     {
 
     }

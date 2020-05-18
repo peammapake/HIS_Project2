@@ -1,7 +1,4 @@
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -94,10 +91,26 @@ public class Bill
         System.out.println("-----------------------------------------------------------------------------------");
     }
 
+    public int getBillID()
+    {
+        return billID;
+    }
+    public Timestamp getRegisterDate()
+    {
+        return regDate;
+    }
+    public Timestamp getPayDate()
+    {
+        return payDate;
+    }
     public String getPatientName()
     {
         String name = firstName + " " + lastName;
         return name;
+    }
+    public int getPatientID()
+    {
+        return patientID;
     }
 
     public ArrayList<String> getTreatments()
