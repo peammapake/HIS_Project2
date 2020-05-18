@@ -26,9 +26,36 @@ public class Clerk extends Staff
     @Override
     public void promptMenu()
     {
-        System.out.println("1 - View unpaid billing list");
-        System.out.println("2 - View paid billing list");
-        System.out.println("3 - Logout");
+        int choice = -999;
+        boolean state = true;
+        mainMenu: while(true)
+        {
+            System.out.println("1 - View unpaid billing list");
+            System.out.println("2 - View paid billing list");
+            System.out.println("3 - Logout");
+
+            choiceMenu: while(true)
+            {
+                choice = IOUtils.getInteger("Please enter your choice of action: ");
+                if (choice <= 0)
+                    continue choiceMenu;
+                switch (choice)
+                {
+                    case 1:
+                        showUnpaidBills();
+                        generateBill(false);
+                        continue mainMenu;
+                    case 2:
+                        showPaidBills();
+                        generateBill(true);
+                        continue mainMenu;
+                    case 3:
+                        break mainMenu;
+                    default:
+                        continue choiceMenu;
+                }
+            }
+        }
     }
 
     @Override
@@ -66,29 +93,61 @@ public class Clerk extends Staff
 
     }
 
-
     public void showUnpaidBills()
     {
+        int index = 1;
         for(Bill bill: unpaidBills)
         {
-            int billID = bill.getBillID();
             Timestamp regDate = bill.getRegisterDate();
             String patientName = bill.getPatientName();
-            System.out.println("ID:" + billID + " Name:" + patientName + " Date:" + regDate);
+            System.out.println("Index:" + index + "- Name:" + patientName + " Date:" + regDate);
+            index++;
         }
     }
 
     public void showPaidBills()
     {
-
+        int index = 1;
+        for(Bill bill: paidBills)
+        {
+            Timestamp regDate = bill.getRegisterDate();
+            String patientName = bill.getPatientName();
+            System.out.println("Index: " + index + "- Name:" + patientName + " Date:" + regDate);
+            index++;
+        }
     }
 
-    public void generateBill()
+    private void generateBill(boolean paid)
     {
+        loop: while(true)
+        {
+            int billID = IOUtils.getInteger("Specify Index to show full bill (0 to return): ");
+            if(billID <= 0)
+                break loop;
+            billID = billID-1;
+            if(paid)
+            {
+                if (billID > paidBills.size())
+                {
+                    System.out.println("Unknown index please try again");
+                    continue loop;
+                }
+                paidBills.get(billID).printBill();
+            }
+            else
+            {
+                if (billID > unpaidBills.size())
+                {
+                    System.out.println("Unknown index please try again");
+                    continue loop;
+                }
+                unpaidBills.get(billID).printBill();
+            }
+        }
 
     }
 
-    public void paidBill()
+    public void billPaid()
     {
 
     }

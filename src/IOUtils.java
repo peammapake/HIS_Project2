@@ -67,25 +67,24 @@ public class IOUtils
        String inputString;
        int readBytes = 0;
        byte buffer[] = new byte[200]; 
-       System.out.println(prompt);
+       System.out.print(prompt);
        try
        {
            readBytes = System.in.read(buffer,0,200);
-       }
-       catch (IOException ioe)
+       } catch (IOException ioe)
        {
-	   System.out.println("Input/output exception - Exiting");
-	   System.exit(1);
+           System.out.println("Input/output exception - Exiting");
+           System.exit(1);
        }
        inputString = new String(buffer);
        inputString = stripTerminators(inputString);
        try 
        {
-           value = Integer.parseInt(inputString);
+            value = Integer.parseInt(inputString);
        }
        catch (NumberFormatException nfe) 
        {
-	   System.out.println("Bad number entered");
+            System.out.println("Bad number entered");
        }
        return value;
     }

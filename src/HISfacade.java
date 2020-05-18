@@ -47,6 +47,7 @@ public class HISfacade
             e.printStackTrace();
         }
         System.out.println("Success!");
+        user.promptMenu();
 
         DBManager.disconnectDatabase();
 

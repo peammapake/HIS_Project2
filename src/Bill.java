@@ -32,9 +32,9 @@ public class Bill
         firstName = fName;
         lastName = lName;
         patientID = pID;
-        treatmentList = (ArrayList<String>) Arrays.asList(treatment.split("|"));
-        labTestList = (ArrayList<String>) Arrays.asList(labTest.split("|"));
-        prescriptionList = (ArrayList<String>) Arrays.asList(prescription.split("|"));
+        treatmentList = new ArrayList(Arrays.asList(treatment.split("\\|")));
+        labTestList = new ArrayList(Arrays.asList(labTest.split("\\|")));
+        prescriptionList = new ArrayList(Arrays.asList(prescription.split("\\|")));
     }
 
     /** Constructor for bill, an Overloading method for constructing paid bill
@@ -56,9 +56,9 @@ public class Bill
         firstName = fName;
         lastName = lName;
         patientID = pID;
-        treatmentList = (ArrayList<String>) Arrays.asList(treatment.split("|"));
-        labTestList = (ArrayList<String>) Arrays.asList(labTest.split("|"));
-        prescriptionList = (ArrayList<String>) Arrays.asList(prescription.split("|"));
+        treatmentList = new ArrayList(Arrays.asList(treatment.split("\\|")));
+        labTestList = new ArrayList(Arrays.asList(labTest.split("\\|")));
+        prescriptionList = new ArrayList(Arrays.asList(prescription.split("\\|")));
     }
 
     public void printBill()
