@@ -262,7 +262,7 @@ public class DBManager
     /**
      * Method responsible for adding new patient into the database
      * @param patient
-     * @return
+     * @return status of the database operation
      */
     public static boolean addNewPatient(Patient patient)
     {
@@ -278,6 +278,33 @@ public class DBManager
             preparedStatement.setInt(6,patient.getPhone());
             preparedStatement.execute();
             preparedStatement.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to update new information of the specific patient to the database
+     * @param patient the chosen patient to have information updated
+     * @return status of the database update operation
+     */
+    public static  boolean modifyPatient(Patient patient)
+    {
+        String query = "UPDATE patients SET fName = ?, lName = ?, sex = ?, address = ?, phone = ?  WHERE patientID = ?";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setString(1,patient.getFirstName());
+            prepareStmt.setString(2,patient.getLastName());
+            prepareStmt.setString(3,patient.getSex());
+            prepareStmt.setString(4,patient.getAddress());
+            prepareStmt.setInt(5,patient.getPhone());
+            prepareStmt.setInt(6,patient.getPatientID());
+            prepareStmt.executeUpdate();
+            prepareStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

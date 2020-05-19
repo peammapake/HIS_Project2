@@ -41,7 +41,8 @@ public class Nurse extends Staff {
         {
             System.out.println("1 - Patient lookup");
             System.out.println("2 - Register new patient");
-            System.out.println("3 - Logout");
+            System.out.println("3 - Modify patient information");
+            System.out.println("4 - Logout");
 
             choiceMenu:
             while (true)
@@ -51,11 +52,17 @@ public class Nurse extends Staff {
                 {
                     case 1:
                         patientLookUp();
+                        assignDoctor();
                         continue mainMenu;
                     case 2:
                         registerPatient();
+                        assignDoctor();
                         continue mainMenu;
                     case 3:
+                        patientLookUp();
+                        modifyPatientInfo();
+                        continue mainMenu;
+                    case 4:
                         break mainMenu;
                     default:
                         System.out.println("Unavailable input choice");
@@ -76,12 +83,22 @@ public class Nurse extends Staff {
         //doctorRS.close();
     }
 
-    public void registerPatient()
+    private void registerPatient()
     {
         System.out.println("Enter new patient information");
         String firstName = IOUtils.getStringSameLine("First name: ");
         String lastName = IOUtils.getStringSameLine("Last name: ");
-        String sex = IOUtils.getStringSameLine("Sex: ");
+        String sex = null;
+        while(true)
+        {
+            sex = IOUtils.getStringSameLine("Sex[M/F]: ");
+            if((!sex.equalsIgnoreCase("M"))||(!sex.equalsIgnoreCase("F")))
+            {
+                System.out.println("Sex must be M or F (Male/Female");
+                continue;
+            }
+            break;
+        }
         String address = IOUtils.getStringSameLine("Address: ");
         int phone = IOUtils.getInteger("Phone Number: ");
         int thisPatientID = PatientList.getLatestPatientID() + 1; //New patient will have an ID after the last patient
@@ -92,7 +109,41 @@ public class Nurse extends Staff {
             System.out.println("Error: Add new patient unsuccessful");
         System.out.println("-----------------------------------------------------------------------------------");
         printPatientInfo();
-        assignDoctor();
+    }
+
+    /**
+     * Method to modify the information of the current chosen patient and
+     * update it on database
+     *
+     */
+    private void modifyPatientInfo()
+    {
+        System.out.println("Enter patient" + currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new information");
+        String firstName = IOUtils.getStringSameLine("First name: ");
+        String lastName = IOUtils.getStringSameLine("Last name: ");
+        String sex = null;
+        while(true)
+        {
+            sex = IOUtils.getStringSameLine("Sex[M/F]: ");
+            if((!sex.equalsIgnoreCase("M"))||(!sex.equalsIgnoreCase("F")))
+            {
+                System.out.println("Sex must be M or F (Male/Female");
+                continue;
+            }
+            break;
+        }
+        String address = IOUtils.getStringSameLine("Address: ");
+        int phone = IOUtils.getInteger("Phone Number: ");
+
+        currentPatient.setFirstName(firstName);
+        currentPatient.setLastName(lastName);
+        currentPatient.setSex(sex);
+        currentPatient.setAddress(address);
+        currentPatient.setPhone(phone);
+        printPatientInfo();
+
+        if(!DBManager.modifyPatient(currentPatient))
+            System.out.println("Error: Update patient information unsuccessful");
     }
 
     /**
@@ -100,7 +151,7 @@ public class Nurse extends Staff {
      * Responsible for notifying database to add new patient queue
      * for the specific doctor
      */
-    private void assignDoctor()
+    private boolean assignDoctor()
     {
         int doctorIndex = 0;
         System.out.println("Available doctors");
@@ -110,8 +161,10 @@ public class Nurse extends Staff {
         }
         loop: while(true)
         {
-            doctorIndex = IOUtils.getInteger("Select dorktor by index: ");
-            if ((doctorIndex <= 0)||(doctorIndex > doctorList.size()))
+            doctorIndex = IOUtils.getInteger("Select dorktor by index (0 to return): ");
+            if(doctorIndex == 0)
+                return false;
+            if ((doctorIndex < 0)||(doctorIndex > doctorList.size()))
             {
                 System.out.println("Unavailable doctor, please try again");
                 continue loop;
@@ -121,16 +174,21 @@ public class Nurse extends Staff {
         doctorIndex--; //Change index to computer standard(NEEDED)
         Doctor currentDoctor = doctorList.get(doctorIndex);
         if (DBManager.addQueue(currentPatient, currentDoctor))
+        {
             System.out.println("Successfully assign Dr." + currentDoctor.firstName + " for " + currentPatient.getFirstName());
+            return true;
+        }
         else
             System.out.println("Error: Assign queue unsuccessful");
+        return false;
     }
 
     /**
      * Select patient from the list and store in currentPatient
+     * The index must be computer standard(START AT 0)
      * @param index     index of patient in the list
      */
-    public void selectPatient(int index)
+    private void selectPatient(int index)
     {
         currentPatient = PatientList.getPatient(index);
     }
@@ -157,11 +215,13 @@ public class Nurse extends Staff {
             if (index <= 0)
                 break loop;
             index = index - 1;
-            currentPatient = PatientList.getPatient(index);
+            selectPatient(index);
+            //currentPatient = PatientList.getPatient(index);
             printPatientInfo();
-            assignDoctor();
             break;
         }
     }
+
+
 
 }

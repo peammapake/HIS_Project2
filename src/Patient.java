@@ -63,6 +63,31 @@ public class Patient
         return phone;
     }
 
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+
+    public void setSex(String sex)
+    {
+        this.sex = sex;
+    }
+
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    public void setPhone(int phone)
+    {
+        this.phone = phone;
+    }
+
     public Admission getAdmission()
     {
         return admission;
