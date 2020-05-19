@@ -10,7 +10,7 @@ public class Nurse extends Staff {
     /**
      * Currently selected patient
      */
-    private Patient currentPatient;
+    private Patient currentPatient = null;
 
     private ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 
@@ -36,9 +36,33 @@ public class Nurse extends Staff {
     @Override
     public void promptMenu()
     {
-        System.out.println("1 - Patient lookup");
-        System.out.println("2 - Register new patient");
-        System.out.println("3 - Logout");
+        int choice = -999;
+        mainMenu: while(true)
+        {
+            System.out.println("1 - Patient lookup");
+            System.out.println("2 - Register new patient");
+            System.out.println("3 - Logout");
+
+            choiceMenu:
+            while (true)
+            {
+                choice = IOUtils.getInteger("Please enter your choice of action: ");
+                switch (choice)
+                {
+                    case 1:
+                        patientLookUp();
+                        continue mainMenu;
+                    case 2:
+                        registerPatient();
+                        continue mainMenu;
+                    case 3:
+                        break mainMenu;
+                    default:
+                        System.out.println("Unavailable input choice");
+                        continue choiceMenu;
+                }
+            }
+        }
     }
 
     @Override
@@ -49,7 +73,7 @@ public class Nurse extends Staff {
         {
             doctorList.add(new Doctor(doctorRS));
         }
-        doctorRS.close();
+        //doctorRS.close();
     }
 
     public void registerPatient()
@@ -60,25 +84,46 @@ public class Nurse extends Staff {
         String sex = IOUtils.getStringSameLine("Sex: ");
         String address = IOUtils.getStringSameLine("Address: ");
         int phone = IOUtils.getInteger("Phone Number: ");
-        Patient patient = new Patient(firstName, lastName, sex, address, phone);
-        System.out.println("Doctor to assign");
-        for (int i = 0 ; i < Doctor.getDoctorList().size(); i++)
-        {
-            System.out.println((i+1) + " - " + Doctor.getDoctorList().get(i).getFullName());
-        }
-        int doctorIndex = IOUtils.getInteger("Select dorktor by index: ") - 1;
-        assignDoctor(Doctor.getDoctorList().get(doctorIndex), patient);
+        int thisPatientID = PatientList.getLatestPatientID() + 1; //New patient will have an ID after the last patient
+        currentPatient = new Patient(thisPatientID,firstName, lastName, sex, address, phone);
+        if(DBManager.addNewPatient(currentPatient))
+            System.out.println("Successfully add new patient");
+        else
+            System.out.println("Error: Add new patient unsuccessful");
+        System.out.println("-----------------------------------------------------------------------------------");
+        printPatientInfo();
+        assignDoctor();
     }
 
     /**
-     * Assign doctor to patient
-     *
-     * @param doctor doctor to assign
+     * Assign a doctor to the currently selected patient
+     * Responsible for notifying database to add new patient queue
+     * for the specific doctor
      */
-    private void assignDoctor(Doctor doctor, Patient patient)
+    private void assignDoctor()
     {
-        doctor.admitPatient(patient);
-        patient.getAdmission().setAssignedDoctor(doctor);
+        int doctorIndex = 0;
+        System.out.println("Available doctors");
+        for (int i = 0 ; i < doctorList.size(); i++)
+        {
+            System.out.println((i+1) + " - " + doctorList.get(i).getFullName());
+        }
+        loop: while(true)
+        {
+            doctorIndex = IOUtils.getInteger("Select dorktor by index: ");
+            if ((doctorIndex <= 0)||(doctorIndex > doctorList.size()))
+            {
+                System.out.println("Unavailable doctor, please try again");
+                continue loop;
+            }
+            break;
+        }
+        doctorIndex--; //Change index to computer standard(NEEDED)
+        Doctor currentDoctor = doctorList.get(doctorIndex);
+        if (DBManager.addQueue(currentPatient, currentDoctor))
+            System.out.println("Successfully assign Dr." + currentDoctor.firstName + " for " + currentPatient.getFirstName());
+        else
+            System.out.println("Error: Assign queue unsuccessful");
     }
 
     /**
@@ -92,8 +137,31 @@ public class Nurse extends Staff {
     /**
      * Print selected patient's information
      */
-    public void printPatientInfo()
+    private void printPatientInfo()
     {
-        currentPatient.printPatientInfo();
+        currentPatient.printPatientBasicInfo();
+        System.out.println("-----------------------------------------------------------------------------------");
     }
+
+    /**
+     * Method to show all of the registered patient
+     * User can choose to further assign the doctor for patient
+     * or go back
+     */
+    private void patientLookUp()
+    {
+        PatientList.showPatients();
+        loop: while(true)
+        {
+            int index = IOUtils.getInteger("Specify Index to show patient's full info. (0 to return): ");
+            if (index <= 0)
+                break loop;
+            index = index - 1;
+            currentPatient = PatientList.getPatient(index);
+            printPatientInfo();
+            assignDoctor();
+            break;
+        }
+    }
+
 }

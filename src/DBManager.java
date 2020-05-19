@@ -119,7 +119,7 @@ public class DBManager
         RS = null;
         try
         {
-            String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\'";
+            String queryDoctors = "SELECT userID, fName, lName, role FROM users WHERE role = \'" + role + "\'";
             RS = stmt.executeQuery(queryDoctors);
         } catch (SQLException e)
         {
@@ -211,6 +211,11 @@ public class DBManager
         return RS;
     }
 
+    /**
+     * Method to update the unpaid bill in database, mark the bill as paid
+     * by specify the payDate timestamp.
+     * @param bill Bill object of the bill that user wants to mark as paid.
+     */
     public static void billPaid(Bill bill)
     {
         String query = "UPDATE bills SET payDate = ? WHERE billID = ?";
@@ -226,4 +231,60 @@ public class DBManager
             e.printStackTrace();
         }
     }
+
+    /**
+     * Method for assigning doctor for the patient
+     * Insert new row into database which act as a queue for the chosen patient.
+     * @param patient The patient user wanted to be add to queue
+     * @param doctor The assigned doctor for the current queue
+     * @return status of SQL statement execution
+     */
+    public static boolean addQueue(Patient patient, Doctor doctor)
+    {
+        int patientID = patient.getPatientID();
+        int doctorID = doctor.getStaffID();
+        String query = "INSERT INTO assignQueue (doctorID, patientID)" + "values(?, ?)";
+        try
+        {
+            PreparedStatement preparedStmt = DB.prepareStatement(query);
+            preparedStmt.setInt(1,doctorID);
+            preparedStmt.setInt(2,patientID);
+            preparedStmt.execute();
+            preparedStmt.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method responsible for adding new patient into the database
+     * @param patient
+     * @return
+     */
+    public static boolean addNewPatient(Patient patient)
+    {
+        String query = "INSERT INTO patients (patientID, fName, lName, sex, address, phone)" + "values(?,?,?,?,?,?)";
+        try
+        {
+            PreparedStatement preparedStatement = DB.prepareStatement(query);
+            preparedStatement.setInt(1, patient.getPatientID());
+            preparedStatement.setString(2,patient.getFirstName());
+            preparedStatement.setString(3,patient.getLastName());
+            preparedStatement.setString(4,patient.getSex());
+            preparedStatement.setString(5,patient.getAddress());
+            preparedStatement.setInt(6,patient.getPhone());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
 }

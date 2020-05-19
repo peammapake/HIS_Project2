@@ -27,7 +27,6 @@ public class Clerk extends Staff
     public void promptMenu()
     {
         int choice = -999;
-        boolean state = true;
         mainMenu: while(true)
         {
             System.out.println("1 - View unpaid billing list");
@@ -121,31 +120,31 @@ public class Clerk extends Staff
     {
         loop: while(true)
         {
-            int billID = IOUtils.getInteger("Specify Index to show full bill (0 to return): ");
-            if(billID <= 0)
+            int billIndex = IOUtils.getInteger("Specify Index to show full bill (0 to return): ");
+            if(billIndex <= 0)
                 break loop;
-            billID = billID-1;
+            billIndex = billIndex-1;
             if(paid)
             {
-                if (billID > paidBills.size())
+                if (billIndex > paidBills.size())
                 {
                     System.out.println("Unknown index please try again");
                     continue loop;
                 }
-                paidBills.get(billID).printBill();
+                paidBills.get(billIndex).printBill();
             }
             else
             {
-                if (billID > unpaidBills.size())
+                if (billIndex > unpaidBills.size())
                 {
                     System.out.println("Unknown index please try again");
                     continue loop;
                 }
-                unpaidBills.get(billID).printBill();
+                unpaidBills.get(billIndex).printBill();
                 String confirm = IOUtils.getString("Mark this bill as paid?(YES to confirm else to return): ");
                 if(confirm.equalsIgnoreCase("YES"))
                 {
-                    unpaidBills.get(billID).billPaid();
+                    unpaidBills.get(billIndex).billPaid();
                 }
             }
 

@@ -78,6 +78,11 @@ public class HISfacade
                 user = new Clerk(userInfo);
                 user.loadStaffData();
                 break;
+            default:
+                System.out.println("Error: Unknown user");
+                DBManager.disconnectDatabase();
+                System.exit(2);
+                break;
         }
         userInfo.close();
         ResultSet patientRS = DBManager.getPatientList();

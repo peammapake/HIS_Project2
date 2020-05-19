@@ -44,4 +44,14 @@ public class PatientList
     {
         return patients.size();
     }
+
+    /**
+     * Get the ID of the latest patient
+     * @return
+     */
+    public static int getLatestPatientID()
+    {
+        int latest = patients.size() - 1;
+        return patients.get(latest).getPatientID();
+    }
 }
