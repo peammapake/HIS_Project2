@@ -119,7 +119,7 @@ public class DBManager
         RS = null;
         try
         {
-            String queryDoctors = "SELECT userID, fName, lName FROM users WHERE role = \'" + role + "\'";
+            String queryDoctors = "SELECT userID, fName, lName, role FROM users WHERE role = \'" + role + "\'";
             RS = stmt.executeQuery(queryDoctors);
         } catch (SQLException e)
         {

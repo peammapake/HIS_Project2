@@ -59,7 +59,7 @@ public abstract class Staff
 
     public String getFullName()
     {
-        return firstName + lastName;
+        return firstName + " " + lastName;
     }
 
 

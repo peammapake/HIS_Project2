@@ -51,7 +51,7 @@ public class PatientList
      */
     public static int getLatestPatientID()
     {
-        int latest = patients.size();
+        int latest = patients.size() - 1;
         return patients.get(latest).getPatientID();
     }
 }

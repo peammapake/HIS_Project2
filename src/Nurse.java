@@ -73,7 +73,7 @@ public class Nurse extends Staff {
         {
             doctorList.add(new Doctor(doctorRS));
         }
-        doctorRS.close();
+        //doctorRS.close();
     }
 
     public void registerPatient()
@@ -111,7 +111,7 @@ public class Nurse extends Staff {
         loop: while(true)
         {
             doctorIndex = IOUtils.getInteger("Select dorktor by index: ");
-            if ((doctorIndex <= 0)||(doctorIndex >= doctorList.size()))
+            if ((doctorIndex <= 0)||(doctorIndex > doctorList.size()))
             {
                 System.out.println("Unavailable doctor, please try again");
                 continue loop;
