@@ -147,6 +147,7 @@ public class DBManager
         return RS;
     }
 
+    //Clerk zone--------------------------------------------------------------------------------------------------------
     /**
      * Add new billing into the database, clerk can then access
      * these data to generate bill for patient
@@ -232,6 +233,8 @@ public class DBManager
         }
     }
 
+    //Nurse zone--------------------------------------------------------------------------------------------------------
+
     /**
      * Method for assigning doctor for the patient
      * Insert new row into database which act as a queue for the chosen patient.
@@ -313,5 +316,6 @@ public class DBManager
         return true;
     }
 
+    //Doctor zone-------------------------------------------------------------------------------------------------------
 
 }

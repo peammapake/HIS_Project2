@@ -7,16 +7,13 @@ import java.util.ArrayList;
  */
 public class Nurse extends Staff {
 
-    /**
-     * Currently selected patient
-     */
+    /**Currently selected patient*/
     private Patient currentPatient = null;
 
+    /**List of all available doctor*/
     private ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 
-    /**
-     * Static list of nurse in system
-     */
+    /**Static list of nurse in system*/
     public static ArrayList<Nurse> nurseArrayList = new ArrayList<Nurse>();
 
     /**
@@ -30,10 +27,10 @@ public class Nurse extends Staff {
         nurseArrayList.add(this);
     }
 
+    @Override
     /**
      * Abstract method show option available in each specific roles
      */
-    @Override
     public void promptMenu() throws SQLException
     {
         int choice = -999;
@@ -79,6 +76,10 @@ public class Nurse extends Staff {
     }
 
     @Override
+    /**
+     * Method responsible for loading and setting up all necessary data from database
+     * - Nurse needs to know all doctor and patient
+     */
     public void loadStaffData() throws SQLException
     {
         ResultSet doctorRS = DBManager.getStaffList("DOCTOR");
@@ -93,6 +94,9 @@ public class Nurse extends Staff {
 
     }
 
+    /**
+     * Method to insert and add new patient into the system and database
+     */
     private void registerPatient()
     {
         System.out.println("-----------------------------------------------------------------------------------");
@@ -206,6 +210,7 @@ public class Nurse extends Staff {
     {
         currentPatient = PatientList.getPatient(index);
     }
+
     /**
      * Print selected patient's information
      */

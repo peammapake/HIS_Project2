@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 public class PatientList
 {
+    /**Array list containing all instances of patients loaded*/
     private static ArrayList<Patient> patients = new ArrayList<Patient>();
 
+    /**
+     * Initialize query all patient from the database
+     * @param patientRS ResultSet of all query patients
+     */
     public static void initialize(ResultSet patientRS) throws SQLException
     {
         patients = new ArrayList<Patient>();
@@ -15,18 +20,19 @@ public class PatientList
         }
     }
 
+    /**
+     * Add new patient to the arraylist
+      * @param patient the patient to be add
+     */
     public static void addPatient(Patient patient)
     {
         patients.add(patient);
     }
 
-
-    public static Patient getPatient(int index)
-    {
-        Patient patient = patients.get(index);
-        return patient;
-    }
-
+    /**
+     * Display all patient within the patient list
+     * with index to allow user to choose
+     */
     public static void showPatients()
     {
         int index = 1;
@@ -37,19 +43,34 @@ public class PatientList
             String lName = patient.getLastName();
             String sex = patient.getSex();
 
-            System.out.println(index + "- PatientID:" + pID + " Name: " + fName + " " + lName + " Sex: " + sex);
+            System.out.println(index + " - PatientID:" + pID + " Name: " + fName + " " + lName + " Sex: " + sex);
             index++;
         }
     }
 
+    /**
+     * Get specific patient, indicate through index in ArrayList
+     * @param index Index of the patient within arraylist
+     * @return Patient of the chosen index
+     */
+    public static Patient getPatient(int index)
+    {
+        Patient patient = patients.get(index);
+        return patient;
+    }
+
+    /**
+     * Get the number of all patient in the list
+     * @return Total number of patients
+     */
     public static int getSize()
     {
         return patients.size();
     }
 
     /**
-     * Get the ID of the latest patient
-     * @return
+     * Get the ID of the latest patient to be registered
+     * @return ID of the latest patient
      */
     public static int getLatestPatientID()
     {

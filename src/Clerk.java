@@ -5,10 +5,13 @@ import java.util.ArrayList;
 
 public class Clerk extends Staff
 {
+    /**Arraylist containing all instances of unpaid bill*/
     private static ArrayList<Bill> unpaidBills = new ArrayList<Bill>();
 
+    /**Arraylist containing all instances of paid bill*/
     private static ArrayList<Bill> paidBills = new ArrayList<Bill>();
 
+    /**Arraylist of all clerk*/
     public static ArrayList<Clerk> clerkArrayList = new ArrayList<Clerk>();
 
     /**
@@ -24,6 +27,9 @@ public class Clerk extends Staff
     }
 
     @Override
+    /**
+     * Main menu responsible for showing and accepting chosen operation from the user
+     */
     public void promptMenu() throws SQLException
     {
         int choice = -999;
@@ -65,6 +71,10 @@ public class Clerk extends Staff
     }
 
     @Override
+    /**
+     * Method responsible for loading and setting up all necessary data from database
+     * - Clerk only needs to know all the bills both paid and unpaid
+     */
     public void loadStaffData() throws SQLException
     {
         ResultSet unpaidRS = null;
@@ -99,6 +109,9 @@ public class Clerk extends Staff
 
     }
 
+    /**
+     * Display all unpaid bill with basic information with index to choose
+     */
     public void showUnpaidBills()
     {
         int index = 1;
@@ -111,6 +124,9 @@ public class Clerk extends Staff
         }
     }
 
+    /**
+     * Display all paid bill with basic information and index to choose
+     */
     public void showPaidBills()
     {
         int index = 1;
@@ -123,6 +139,11 @@ public class Clerk extends Staff
         }
     }
 
+    /**
+     * Generate full detail bill of the chosen bill
+     * if the bill is unpaid, further ask if user want to update the bill to paid
+     * @param paid choose whether the bill is already paid or not
+     */
     private void generateBill(boolean paid)
     {
         loop: while(true)

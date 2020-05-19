@@ -47,22 +47,37 @@ public abstract class Staff
      */
     public abstract void loadStaffData() throws SQLException;
 
+    /**
+     * get user first name
+     * @return first name
+     */
     public String getFirstName()
     {
         return firstName;
     }
 
+    /**
+     * get user last name
+     * @return last name
+     */
     public String getLastName()
     {
         return lastName;
     }
 
+    /**
+     * get the full name of the user
+     * @return full name string
+     */
     public String getFullName()
     {
         return firstName + " " + lastName;
     }
 
-
+    /**
+     * get user ID
+     * @return user ID
+     */
     public int getStaffID()
     {
         return staffID;

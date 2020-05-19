@@ -3,14 +3,26 @@ import java.sql.SQLException;
 
 public class Patient
 {
+    /**Patient ID of the current patient*/
     private int patientID;
+    /**First name of the patient*/
     private String firstName;
+    /**Patient last name*/
     private String lastName;
+    /**Patient physical sexuality*/
     private String sex;
+    /**Patient home address*/
     private String address;
+    /**Phone number of patient, cannot be integer because 0 in front*/
     private String phone;
+    /**Patient current admission*/
     private Admission admission;
 
+    /**
+     * Constructor for patient include all patient basic information
+     * @param patientInfo ResultSet from SQl query
+     * @throws SQLException input use ResultSet which require error handling
+     */
     public Patient(ResultSet patientInfo) throws SQLException
     {
         patientID = patientInfo.getInt(1);
@@ -22,6 +34,15 @@ public class Patient
         admission = new Admission();
     }
 
+    /**
+     * Overloading constructor so it is also capable of adding new patient using basic variable input
+     * @param patientID Patient ID
+     * @param firstName Patient first name
+     * @param lastName Patient last name
+     * @param sex Patient physical sexuality
+     * @param address Patient home address
+     * @param phone Patient's phone number
+     */
     public Patient(int patientID, String firstName, String lastName, String sex, String address, String phone)
     {
         this.patientID = patientID;
@@ -33,66 +54,9 @@ public class Patient
         admission = new Admission();
     }
 
-    public int getPatientID()
-    {
-        return patientID;
-    }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public String getLastName()
-    {
-        return lastName;
-    }
-
-    public String getSex()
-    {
-        return sex;
-    }
-
-    public String getAddress()
-    {
-        return address;
-    }
-
-    public String getPhone()
-    {
-        return phone;
-    }
-
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
-
-    public void setSex(String sex)
-    {
-        this.sex = sex;
-    }
-
-    public void setAddress(String address)
-    {
-        this.address = address;
-    }
-
-    public void setPhone(String phone)
-    {
-        this.phone = phone;
-    }
-
-    public Admission getAdmission()
-    {
-        return admission;
-    }
-
+    /**
+     * Print basic information of the patient
+     */
     public void printPatientBasicInfo()
     {
         System.out.println("---- Patient information ----");
@@ -129,5 +93,109 @@ public class Patient
         System.out.println("Prescription : " + admission.getDiagnosis());
         System.out.println("Assigned Doctor: " + admission.getAssignedDoctor());*/
 
+    }
+
+    //Getter and Setter zone--------------------------------------------------------------------------------------------
+
+    /**
+     * @return patient ID
+     */
+    public int getPatientID()
+    {
+        return patientID;
+    }
+
+    /**
+     * @return patient first name
+     */
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    /**
+     * @return patient last name
+     */
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    /**
+     * @return patient physical sexuality
+     */
+    public String getSex()
+    {
+        return sex;
+    }
+
+    /**
+     * @return patient home address
+     */
+    public String getAddress()
+    {
+        return address;
+    }
+
+    /**
+     * @return phone number
+     */
+    public String getPhone()
+    {
+        return phone;
+    }
+
+    /**
+     * set new first name
+     * @param firstName new first name
+     */
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+
+    /**
+     * set new last name
+     * @param lastName new last name
+     */
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+
+    /**
+     * set patient sexuality
+     * @param sex new physical sexuality
+     */
+    public void setSex(String sex)
+    {
+        this.sex = sex;
+    }
+
+    /**
+     * set patient home address
+     * @param address new home address
+     */
+    public void setAddress(String address)
+    {
+        this.address = address;
+    }
+
+    /**
+     * set phone number
+     * @param phone new phone number
+     */
+    public void setPhone(String phone)
+    {
+        this.phone = phone;
+    }
+
+    /**
+     * ???????
+     * @return
+     */
+    public Admission getAdmission()
+    {
+        return admission;
     }
 }
