@@ -8,6 +8,10 @@ public class SymptomList {
     {
 
     }
+    public void addSymptom(String symptom)
+    {
+        symptoms.add(symptom);
+    }
 
     public String getSymptom(int index)
     {

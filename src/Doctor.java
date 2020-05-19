@@ -96,7 +96,23 @@ public class Doctor extends Staff
         int optionSelect = IOUtils.getInteger("Enter number of option : ");
         switch (optionSelect)
         {
-            // TODO
+            case 1:
+                recordSymptoms();
+                break;
+            case 2:
+                recordTreatments();
+                break;
+            case 3:
+                recordLabTests();
+                break;
+            case 4:
+                recordDiagnosis();
+                break;
+            case 5:
+                prescribe();
+                break;
+            default:
+                System.out.println("Invalid input");
         }
     }
 
@@ -113,7 +129,7 @@ public class Doctor extends Staff
      */
     public void printPatientInfo()
     {
-
+        currentPatient.printPatientInfo();
     }
 
     /**
@@ -121,7 +137,26 @@ public class Doctor extends Staff
      */
     private void recordSymptoms()
     {
-
+        boolean bContinue = true;
+        Admission pAdmission = currentPatient.getAdmission();
+        while (bContinue)
+        {
+            String symptom = IOUtils.getString("Input Symptom (enter 0 to return): ");
+            pAdmission.getSymptoms().addSymptom(symptom);
+            String cont = IOUtils.getString("Record more symptoms?(y/n): ");
+            if (cont.equals("y"))
+            {
+                bContinue = true;
+            }
+            else if (cont.equals("n"))
+            {
+                bContinue = false;
+            }
+            else
+            {
+                bContinue = false;
+            }
+        }
     }
 
     /**
