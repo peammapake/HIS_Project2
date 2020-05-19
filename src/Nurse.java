@@ -1,4 +1,3 @@
-import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -83,10 +82,18 @@ public class Nurse extends Staff {
     }
 
     /**
+     * Select patient from the list and store in currentPatient
+     * @param index     index of patient in the list
+     */
+    public void selectPatient(int index)
+    {
+        currentPatient = PatientList.getPatient(index);
+    }
+    /**
      * Print selected patient's information
      */
     public void printPatientInfo()
     {
-
+        currentPatient.printPatientInfo();
     }
 }
