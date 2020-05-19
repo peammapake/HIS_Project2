@@ -129,7 +129,7 @@ public class Doctor extends Staff
      */
     public void printPatientInfo()
     {
-        currentPatient.printPatientInfo();
+        currentPatient.printPatientBasicInfo();
     }
 
     /**
