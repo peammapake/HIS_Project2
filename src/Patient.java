@@ -17,12 +17,14 @@ public class Patient
         firstName = patientInfo.getString(2);
         lastName = patientInfo.getString(3);
         sex = patientInfo.getString(4);
-        phone = patientInfo.getInt(5);
+        address = patientInfo.getString(5);
+        phone = patientInfo.getInt(6);
         admission = new Admission();
     }
 
-    public Patient(String firstName, String lastName, String sex, String address, int phone)
+    public Patient(int patientID, String firstName, String lastName, String sex, String address, int phone)
     {
+        this.patientID = patientID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sex = sex;
@@ -66,13 +68,15 @@ public class Patient
         return admission;
     }
 
-    public void printPatientInfo()
+    public void printPatientBasicInfo()
     {
         System.out.println("---- Patient information ----");
         System.out.println("Patient ID : " + getPatientID());
         System.out.println("Name : " + getFirstName() + " " + getLastName());
-        System.out.println("Gender : " + getSex());
-        System.out.println("Symptoms : ");
+        System.out.println("Sex : " + getSex());
+        System.out.println("Address: " + getAddress());
+        System.out.println("Phone: " + getPhone());
+        /*System.out.println("Symptoms : ");
         SymptomList symptoms = admission.getSymptoms();
         for (int i = 0 ; i < symptoms.getSymptomSize(); i++)
         {
@@ -97,7 +101,7 @@ public class Patient
             System.out.println("\t" + i + " - " + prescriptions.getMedicine(i));
         }
         System.out.println("Prescription : " + admission.getDiagnosis());
-        System.out.println("Assigned Doctor: " + admission.getAssignedDoctor());
+        System.out.println("Assigned Doctor: " + admission.getAssignedDoctor());*/
 
     }
 }
