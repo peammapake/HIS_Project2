@@ -68,15 +68,12 @@ public class HISfacade
         {
             case "DOCTOR":
                 user = new Doctor(userInfo);
-                user.loadStaffData();
                 break;
             case "NURSE":
                 user = new Nurse(userInfo);
-                user.loadStaffData();
                 break;
             case "CLERK":
                 user = new Clerk(userInfo);
-                user.loadStaffData();
                 break;
             default:
                 System.out.println("Error: Unknown user");
@@ -85,15 +82,6 @@ public class HISfacade
                 break;
         }
         userInfo.close();
-        ResultSet patientRS = DBManager.getPatientList();
-        try
-        {
-            PatientList.initialize(patientRS);
-            patientRS.close();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
     }
 
 }

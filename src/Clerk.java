@@ -24,7 +24,7 @@ public class Clerk extends Staff
     }
 
     @Override
-    public void promptMenu()
+    public void promptMenu() throws SQLException
     {
         int choice = -999;
         mainMenu: while(true)
@@ -33,10 +33,12 @@ public class Clerk extends Staff
             System.out.println("Available options:");
             System.out.println("1 - View unpaid billing list");
             System.out.println("2 - View paid billing list");
-            System.out.println("3 - Logout");
+            System.out.println("3 - Update data");
+            System.out.println("4 - Logout");
 
             choiceMenu: while(true)
             {
+                loadStaffData();
                 choice = IOUtils.getInteger("Please enter your choice of action: ");
                 if (choice <= 0)
                     continue choiceMenu;
@@ -51,8 +53,11 @@ public class Clerk extends Staff
                         generateBill(true);
                         continue mainMenu;
                     case 3:
+                        continue mainMenu;
+                    case 4:
                         break mainMenu;
                     default:
+                        System.out.println("Unavailable input choice");
                         continue choiceMenu;
                 }
             }
@@ -149,11 +154,7 @@ public class Clerk extends Staff
                     unpaidBills.get(billIndex).billPaid();
                 }
             }
-
             break;
         }
-
     }
-
-
 }

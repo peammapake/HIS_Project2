@@ -34,7 +34,7 @@ public class Nurse extends Staff {
      * Abstract method show option available in each specific roles
      */
     @Override
-    public void promptMenu()
+    public void promptMenu() throws SQLException
     {
         int choice = -999;
         mainMenu: while(true)
@@ -44,11 +44,13 @@ public class Nurse extends Staff {
             System.out.println("1 - Patient lookup");
             System.out.println("2 - Register new patient");
             System.out.println("3 - Modify patient information");
-            System.out.println("4 - Logout");
+            System.out.println("4 - Update data");
+            System.out.println("5 - Logout");
 
             choiceMenu:
             while (true)
             {
+                loadStaffData();
                 choice = IOUtils.getInteger("Please enter your choice of action: ");
                 switch (choice)
                 {
@@ -65,6 +67,8 @@ public class Nurse extends Staff {
                         modifyPatientInfo();
                         continue mainMenu;
                     case 4:
+                        continue mainMenu;
+                    case 5:
                         break mainMenu;
                     default:
                         System.out.println("Unavailable input choice");
@@ -82,11 +86,16 @@ public class Nurse extends Staff {
         {
             doctorList.add(new Doctor(doctorRS));
         }
-        //doctorRS.close();
+        doctorRS.close();
+        ResultSet patientRS = DBManager.getPatientList();
+        PatientList.initialize(patientRS);
+        patientRS.close();
+
     }
 
     private void registerPatient()
     {
+        System.out.println("-----------------------------------------------------------------------------------");
         System.out.println("Enter new patient information");
         String firstName = IOUtils.getStringSameLine("First name: ");
         String lastName = IOUtils.getStringSameLine("Last name: ");
@@ -109,7 +118,6 @@ public class Nurse extends Staff {
             System.out.println("Successfully add new patient");
         else
             System.out.println("Error: Add new patient unsuccessful");
-        System.out.println("-----------------------------------------------------------------------------------");
         printPatientInfo();
     }
 
@@ -120,6 +128,7 @@ public class Nurse extends Staff {
      */
     private void modifyPatientInfo()
     {
+        System.out.println("-----------------------------------------------------------------------------------");
         System.out.println("Enter patient" + currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new information");
         String firstName = IOUtils.getStringSameLine("First name: ");
         String lastName = IOUtils.getStringSameLine("Last name: ");
@@ -156,6 +165,7 @@ public class Nurse extends Staff {
     private boolean assignDoctor()
     {
         int doctorIndex = 0;
+        System.out.println("-----------------------------------------------------------------------------------");
         System.out.println("Available doctors");
         for (int i = 0 ; i < doctorList.size(); i++)
         {
@@ -178,12 +188,12 @@ public class Nurse extends Staff {
         if (DBManager.addQueue(currentPatient, currentDoctor))
         {
             System.out.println("Successfully assign Dr." + currentDoctor.firstName + " for " + currentPatient.getFirstName());
-            System.out.println("-----------------------------------------------------------------------------------");
             return true;
         }
         else
+        {
             System.out.println("Error: Assign queue unsuccessful");
-        System.out.println("-----------------------------------------------------------------------------------");
+        }
         return false;
     }
 
@@ -202,7 +212,6 @@ public class Nurse extends Staff {
     private void printPatientInfo()
     {
         currentPatient.printPatientBasicInfo();
-        System.out.println("-----------------------------------------------------------------------------------");
     }
 
     /**
@@ -216,11 +225,15 @@ public class Nurse extends Staff {
         loop: while(true)
         {
             int index = IOUtils.getInteger("Specify Index to show patient's full info. (0 to return): ");
-            if (index <= 0)
+            if (index == 0)
                 break loop;
+            if ((index < 0) || (index > PatientList.getSize()))
+            {
+                System.out.println("Chosen doctor unavailable");
+                continue loop;
+            }
             index = index - 1;
             selectPatient(index);
-            //currentPatient = PatientList.getPatient(index);
             printPatientInfo();
             break;
         }

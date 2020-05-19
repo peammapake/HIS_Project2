@@ -40,7 +40,7 @@ public abstract class Staff
     /**
      * Abstract method show option available in each specific roles
      */
-    public abstract void promptMenu();
+    public abstract void promptMenu() throws SQLException;
 
     /**
      * Abstract method preparing data from database as needed for each staff type

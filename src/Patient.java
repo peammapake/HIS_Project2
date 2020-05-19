@@ -101,6 +101,7 @@ public class Patient
         System.out.println("Sex : " + getSex());
         System.out.println("Address: " + getAddress());
         System.out.println("Phone: " + getPhone());
+        System.out.println("-----------------------------------------------------------------------------------");
         /*System.out.println("Symptoms : ");
         SymptomList symptoms = admission.getSymptoms();
         for (int i = 0 ; i < symptoms.getSymptomSize(); i++)

@@ -8,6 +8,7 @@ public class PatientList
 
     public static void initialize(ResultSet patientRS) throws SQLException
     {
+        patients = new ArrayList<Patient>();
         while(patientRS.next())
         {
             addPatient(new Patient(patientRS));
@@ -18,6 +19,7 @@ public class PatientList
     {
         patients.add(patient);
     }
+
 
     public static Patient getPatient(int index)
     {
