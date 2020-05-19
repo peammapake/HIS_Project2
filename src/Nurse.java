@@ -159,9 +159,9 @@ public class Nurse extends Staff {
             index = index - 1;
             currentPatient = PatientList.getPatient(index);
             printPatientInfo();
+            assignDoctor();
             break;
         }
-        assignDoctor();
     }
 
 }
