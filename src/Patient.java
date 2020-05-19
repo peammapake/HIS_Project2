@@ -8,7 +8,7 @@ public class Patient
     private String lastName;
     private String sex;
     private String address;
-    private int phone;
+    private String phone;
     private Admission admission;
 
     public Patient(ResultSet patientInfo) throws SQLException
@@ -18,11 +18,11 @@ public class Patient
         lastName = patientInfo.getString(3);
         sex = patientInfo.getString(4);
         address = patientInfo.getString(5);
-        phone = patientInfo.getInt(6);
+        phone = patientInfo.getString(6);
         admission = new Admission();
     }
 
-    public Patient(int patientID, String firstName, String lastName, String sex, String address, int phone)
+    public Patient(int patientID, String firstName, String lastName, String sex, String address, String phone)
     {
         this.patientID = patientID;
         this.firstName = firstName;
@@ -58,7 +58,7 @@ public class Patient
         return address;
     }
 
-    public int getPhone()
+    public String getPhone()
     {
         return phone;
     }
@@ -83,7 +83,7 @@ public class Patient
         this.address = address;
     }
 
-    public void setPhone(int phone)
+    public void setPhone(String phone)
     {
         this.phone = phone;
     }

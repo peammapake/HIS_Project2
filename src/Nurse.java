@@ -39,6 +39,8 @@ public class Nurse extends Staff {
         int choice = -999;
         mainMenu: while(true)
         {
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Available options:");
             System.out.println("1 - Patient lookup");
             System.out.println("2 - Register new patient");
             System.out.println("3 - Modify patient information");
@@ -92,15 +94,15 @@ public class Nurse extends Staff {
         while(true)
         {
             sex = IOUtils.getStringSameLine("Sex[M/F]: ");
-            if((!sex.equalsIgnoreCase("M"))||(!sex.equalsIgnoreCase("F")))
+            if((!sex.equalsIgnoreCase("M"))&&(!sex.equalsIgnoreCase("F")))
             {
-                System.out.println("Sex must be M or F (Male/Female");
+                System.out.println("Sex must be M or F (Male/Female)");
                 continue;
             }
             break;
         }
         String address = IOUtils.getStringSameLine("Address: ");
-        int phone = IOUtils.getInteger("Phone Number: ");
+        String phone = IOUtils.getStringSameLine("Phone Number: ");
         int thisPatientID = PatientList.getLatestPatientID() + 1; //New patient will have an ID after the last patient
         currentPatient = new Patient(thisPatientID,firstName, lastName, sex, address, phone);
         if(DBManager.addNewPatient(currentPatient))
@@ -124,16 +126,16 @@ public class Nurse extends Staff {
         String sex = null;
         while(true)
         {
-            sex = IOUtils.getStringSameLine("Sex[M/F]: ");
-            if((!sex.equalsIgnoreCase("M"))||(!sex.equalsIgnoreCase("F")))
+            sex = IOUtils.getStringSameLine("Sex[M/F]: ").trim();
+            if((!sex.equalsIgnoreCase("M"))&&(!sex.equalsIgnoreCase("F")))
             {
-                System.out.println("Sex must be M or F (Male/Female");
+                System.out.println("Sex must be M or F (Male/Female)");
                 continue;
             }
             break;
         }
         String address = IOUtils.getStringSameLine("Address: ");
-        int phone = IOUtils.getInteger("Phone Number: ");
+        String phone = IOUtils.getStringSameLine("Phone Number: ");
 
         currentPatient.setFirstName(firstName);
         currentPatient.setLastName(lastName);
@@ -176,10 +178,12 @@ public class Nurse extends Staff {
         if (DBManager.addQueue(currentPatient, currentDoctor))
         {
             System.out.println("Successfully assign Dr." + currentDoctor.firstName + " for " + currentPatient.getFirstName());
+            System.out.println("-----------------------------------------------------------------------------------");
             return true;
         }
         else
             System.out.println("Error: Assign queue unsuccessful");
+        System.out.println("-----------------------------------------------------------------------------------");
         return false;
     }
 

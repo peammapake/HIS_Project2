@@ -275,7 +275,7 @@ public class DBManager
             preparedStatement.setString(3,patient.getLastName());
             preparedStatement.setString(4,patient.getSex());
             preparedStatement.setString(5,patient.getAddress());
-            preparedStatement.setInt(6,patient.getPhone());
+            preparedStatement.setString(6,patient.getPhone());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException e)
@@ -301,7 +301,7 @@ public class DBManager
             prepareStmt.setString(2,patient.getLastName());
             prepareStmt.setString(3,patient.getSex());
             prepareStmt.setString(4,patient.getAddress());
-            prepareStmt.setInt(5,patient.getPhone());
+            prepareStmt.setString(5,patient.getPhone());
             prepareStmt.setInt(6,patient.getPatientID());
             prepareStmt.executeUpdate();
             prepareStmt.close();

@@ -29,6 +29,8 @@ public class Clerk extends Staff
         int choice = -999;
         mainMenu: while(true)
         {
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Available options:");
             System.out.println("1 - View unpaid billing list");
             System.out.println("2 - View paid billing list");
             System.out.println("3 - Logout");
