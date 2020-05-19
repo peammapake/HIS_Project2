@@ -1,3 +1,4 @@
+import javax.xml.transform.Result;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -6,15 +7,13 @@ import java.util.ArrayList;
  * Class represent nurse in hospital information system
  */
 public class Nurse extends Staff {
-    /**
-     * List of every patient currently in system
-     */
-    private PatientList patients = new PatientList();
 
     /**
      * Currently selected patient
      */
     private Patient currentPatient;
+
+    private ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
 
     /**
      * Static list of nurse in system
@@ -46,16 +45,21 @@ public class Nurse extends Staff {
     @Override
     public void loadStaffData() throws SQLException
     {
-
+        ResultSet doctorRS = DBManager.getStaffList("DOCTOR");
+        while(doctorRS.next())
+        {
+            doctorList.add(new Doctor(doctorRS));
+        }
+        doctorRS.close();
     }
 
     public void registerPatient()
     {
         System.out.println("Enter new patient information");
-        String firstName = IOUtils.getString("First name: ");
-        String lastName = IOUtils.getString("Last name: ");
-        String sex = IOUtils.getString("Gender: ");
-        String address = IOUtils.getString("Address: ");
+        String firstName = IOUtils.getStringSameLine("First name: ");
+        String lastName = IOUtils.getStringSameLine("Last name: ");
+        String sex = IOUtils.getStringSameLine("Sex: ");
+        String address = IOUtils.getStringSameLine("Address: ");
         int phone = IOUtils.getInteger("Phone Number: ");
         Patient patient = new Patient(firstName, lastName, sex, address, phone);
         System.out.println("Doctor to assign");
@@ -63,7 +67,7 @@ public class Nurse extends Staff {
         {
             System.out.println((i+1) + " - " + Doctor.getDoctorList().get(i).getFullName());
         }
-        int doctorIndex = IOUtils.getInteger("Select number of doctor") - 1;
+        int doctorIndex = IOUtils.getInteger("Select dorktor by index: ") - 1;
         assignDoctor(Doctor.getDoctorList().get(doctorIndex), patient);
     }
 
@@ -76,14 +80,6 @@ public class Nurse extends Staff {
     {
         doctor.admitPatient(patient);
         patient.getAdmission().setAssignedDoctor(doctor);
-    }
-
-    /**
-     * Print every patient in the list
-     */
-    public void showsPatients()
-    {
-
     }
 
     /**

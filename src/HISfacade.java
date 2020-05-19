@@ -80,6 +80,15 @@ public class HISfacade
                 break;
         }
         userInfo.close();
+        ResultSet patientRS = DBManager.getPatientList();
+        try
+        {
+            PatientList.initialize(patientRS);
+            patientRS.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }

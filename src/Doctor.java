@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Doctor extends Staff
 {
     /** List of patients assigned to doctor by nurse*/
-    private PatientList patients = new PatientList();
+    private PatientList patients = null;
 
     /** current selected patient*/
     private Patient currentPatient;
