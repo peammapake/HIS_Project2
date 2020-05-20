@@ -36,6 +36,7 @@ public class Nurse extends Staff {
         int choice = -999;
         mainMenu: while(true)
         {
+            loadStaffData();
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("Available options:");
             System.out.println("1 - Patient lookup");
@@ -44,10 +45,8 @@ public class Nurse extends Staff {
             System.out.println("4 - Update data");
             System.out.println("5 - Logout");
 
-            choiceMenu:
-            while (true)
+            choiceMenu: while (true)
             {
-                loadStaffData();
                 choice = IOUtils.getInteger("Please enter your choice of action: ");
                 switch (choice)
                 {
@@ -68,7 +67,7 @@ public class Nurse extends Staff {
                     case 5:
                         break mainMenu;
                     default:
-                        System.out.println("Unavailable input choice");
+                        System.out.println("Unavailable choice input");
                         continue choiceMenu;
                 }
             }

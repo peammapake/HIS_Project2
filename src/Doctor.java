@@ -27,20 +27,53 @@ public class Doctor extends Staff
     {
         super(userInfo);
         doctorArrayList.add(this);
-
     }
 
     /**
      * Abstract method show option available in each specific role.s
+     * @throws SQLException when there is a problem with ResultSet statement
      */
     @Override
-    public void promptMenu()
+    public void promptMenu() throws SQLException
     {
-        System.out.println("-----------------------------------------------------------------------------------");
-        System.out.println("Available options:");
-        System.out.println("1 - Patient lookup");
-        System.out.println("2 - Discharge patient");
-        System.out.println("3 - Logout");
+        int choice = -999;
+        mainMenu: while(true)
+        {
+            loadStaffData();
+            System.out.println("-----------------------------------------------------------------------------------");
+            System.out.println("Available options:");
+            System.out.println("1 - Patient in-queue lookup");
+            System.out.println("2 - Admission update");
+            System.out.println("3 - Discharge patient");
+            System.out.println("4 - Update data");
+            System.out.println("5 - Logout");
+
+            choiceMenu:
+            while (true)
+            {
+                choice = IOUtils.getInteger("Please enter your choice of action: ");
+                switch (choice)
+                {
+                    case 1:
+                        if(showPatientsInQueue())
+                            admitPatient();
+                        continue mainMenu;
+                    case 2:
+
+                        continue mainMenu;
+                    case 3:
+
+                        continue mainMenu;
+                    case 4:
+                        continue mainMenu;
+                    case 5:
+                        break mainMenu;
+                    default:
+                        System.out.println("Unavailable choice input");
+                        continue choiceMenu;
+                }
+            }
+        }
     }
 
 
@@ -50,25 +83,37 @@ public class Doctor extends Staff
     @Override
     public void loadStaffData() throws SQLException
     {
-        // TODO : Do it
+        ResultSet patientRS = DBManager.getPatientListInQueue(getStaffID());
+        PatientList.initialize(patientRS);
+        patientRS.close();
     }
 
     /**
-     * print list of patients assigned to this  doctor
+     * print list of patients assigned to this doctor
+     * and choose whether to admit the patient
+     * If choose to admit, remove patient from the waiting list
+     * First In First Out Strategy ONLY
      */
-    public void showPatients()
+    public boolean showPatientsInQueue()
     {
-        for (int i = 0; i < patients.getSize(); i++)
+        currentPatient = null;
+        if(!PatientList.showPatients())
         {
-            Patient patient = patients.getPatient(i);
-            String patientName = patient.getFirstName() + " " + patient.getLastName();
-            System.out.println((i + 1) + patientName);
+            System.out.println("--There is no patient in queue--");
+            return false;
         }
+        String patientName = PatientList.getPatient(0).getFirstName() + " " + PatientList.getPatient(0).getLastName();
+        System.out.println("**System follows First In First Out policy only");
+        String confirmation = IOUtils.getStringSameLine("Proceed to admit " + patientName + "?[YES/NO]: ").trim();
+        if(!confirmation.equalsIgnoreCase("YES"))
+            return false;
+        currentPatient = PatientList.getPatient(0);
+        return true;
     }
 
     /**
      * Select patient from the list and store in currentPatient
-     * @param index     index of patient in the list
+     * @param index index of patient in the list
      */
     public void selectPatient(int index)
     {
@@ -76,11 +121,14 @@ public class Doctor extends Staff
     }
 
     /**
-     *  Admit selected patient to bed
+     *  Admit current chosen patient to the hospital,
+     *  remove the patient name from the waiting list
      */
-    public void admitPatient(Patient patient)
+    public void admitPatient()
     {
-        patients.addPatient(patient);
+        System.out.println("-----------------------------------------------------------------------------------");
+        currentPatient.printPatientBasicInfo();
+
     }
 
     /**
@@ -93,9 +141,9 @@ public class Doctor extends Staff
         System.out.println("2 : Record Treatment");
         System.out.println("3 : Record Lab test and result");
         System.out.println("4 : Record Diagnosis");
-        System.out.println("5 : Prescribe");
+        System.out.println("5 : Prescribe medicine");
         System.out.println("----------------------------");
-        int optionSelect = IOUtils.getInteger("Enter number of option : ");
+        int optionSelect = IOUtils.getInteger("Please enter your choice of action: ");
         switch (optionSelect)
         {
             case 1:

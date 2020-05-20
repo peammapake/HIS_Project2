@@ -31,7 +31,6 @@ public class Patient
         sex = patientInfo.getString(4);
         address = patientInfo.getString(5);
         phone = patientInfo.getString(6);
-        admission = new Admission();
     }
 
     /**
@@ -51,7 +50,6 @@ public class Patient
         this.sex = sex;
         this.address = address;
         this.phone = phone;
-        admission = new Admission();
     }
 
     /**

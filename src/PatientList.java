@@ -20,6 +20,7 @@ public class PatientList
         }
     }
 
+
     /**
      * Add new patient to the arraylist
       * @param patient the patient to be add
@@ -32,10 +33,13 @@ public class PatientList
     /**
      * Display all patient within the patient list
      * with index to allow user to choose
+     * @return Return status whether the list is empty or not
      */
-    public static void showPatients()
+    public static boolean showPatients()
     {
         int index = 1;
+        if(patients.isEmpty())
+            return false;
         for(Patient patient: patients)
         {
             int pID = patient.getPatientID();
@@ -46,6 +50,24 @@ public class PatientList
             System.out.println(index + " - PatientID:" + pID + " Name: " + fName + " " + lName + " Sex: " + sex);
             index++;
         }
+        return true;
+    }
+
+    /**
+     * Method to find patient from the ArrayList by their ID
+     * Not efficient and might take long if size gets bigger
+     * @param id
+     * @return
+     */
+    public static Patient findPatientByID(int id)
+    {
+        for(Patient patient: patients)
+        {
+            int patientID = patient.getPatientID();
+            if(id == patientID)
+                return patient;
+        }
+        return null;
     }
 
     /**

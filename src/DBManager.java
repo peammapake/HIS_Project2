@@ -294,7 +294,7 @@ public class DBManager
      * @param patient the chosen patient to have information updated
      * @return status of the database update operation
      */
-    public static  boolean modifyPatient(Patient patient)
+    public static boolean modifyPatient(Patient patient)
     {
         String query = "UPDATE patients SET fName = ?, lName = ?, sex = ?, address = ?, phone = ?  WHERE patientID = ?";
         try
@@ -317,5 +317,48 @@ public class DBManager
     }
 
     //Doctor zone-------------------------------------------------------------------------------------------------------
+
+    /**
+     * Query all waiting queue for the specific doctor
+     * @param doctorID ID of the chosen doctor
+     * @return ResultSet containing all waiting queue of that doctor
+     */
+    public static ResultSet getPatientListInQueue(int doctorID)
+    {
+        String query = "SELECT * FROM patients JOIN assignQueue ON assignQueue.patientID = patients.patientID WHERE assignQueue.doctorID = ?";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setInt(1,doctorID);
+            RS = prepareStmt.executeQuery();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return RS;
+    }
+
+    /**
+     * Method to remove the first queue of the specific doctor from database
+     * @param doctorID ID of the doctor assigned with the queue
+     * @param patientID ID of patient of the given queue
+     * @return
+     */
+    public static boolean removeQueue(int doctorID, int patientID)
+    {
+        String query = "DELETE FROM assignQueue WHERE doctorID = ? AND patientID = ? ORDER BY queueTime ASC LIMIT 1";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setInt(1, doctorID);
+            prepareStmt.setInt(2, patientID);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 
 }

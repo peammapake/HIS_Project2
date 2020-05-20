@@ -33,8 +33,10 @@ public class Clerk extends Staff
     public void promptMenu() throws SQLException
     {
         int choice = -999;
+
         mainMenu: while(true)
         {
+            loadStaffData();
             System.out.println("-----------------------------------------------------------------------------------");
             System.out.println("Available options:");
             System.out.println("1 - View unpaid billing list");
@@ -44,7 +46,6 @@ public class Clerk extends Staff
 
             choiceMenu: while(true)
             {
-                loadStaffData();
                 choice = IOUtils.getInteger("Please enter your choice of action: ");
                 if (choice <= 0)
                     continue choiceMenu;
@@ -63,7 +64,7 @@ public class Clerk extends Staff
                     case 4:
                         break mainMenu;
                     default:
-                        System.out.println("Unavailable input choice");
+                        System.out.println("Unavailable choice input");
                         continue choiceMenu;
                 }
             }
