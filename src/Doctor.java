@@ -14,6 +14,8 @@ public class Doctor extends Staff
     /** current selected patient*/
     private Patient currentPatient;
 
+    private ArrayList<Admission> admissions = new ArrayList<Admission>();
+
     /** Static list of doctors in the system*/
     public static ArrayList<Doctor> doctorArrayList = new ArrayList<>();
 
@@ -48,8 +50,7 @@ public class Doctor extends Staff
             System.out.println("4 - Update data");
             System.out.println("5 - Logout");
 
-            choiceMenu:
-            while (true)
+            choiceMenu: while (true)
             {
                 choice = IOUtils.getInteger("Please enter your choice of action: ");
                 switch (choice)
@@ -83,10 +84,15 @@ public class Doctor extends Staff
     @Override
     public void loadStaffData() throws SQLException
     {
-        ResultSet patientRS = DBManager.getPatientList();
+        ResultSet patientRS = DBManager.getPatientListInQueue(getStaffID());
         PatientList.initialize(patientRS);
         patientRS.close();
-        ResultSet queueRS = DBManager.getPatientListInQueue(getStaffID());
+
+        ResultSet admissionRS = DBManager.getAdmissions(getStaffID());
+        while(admissionRS.next())
+        {
+
+        }
     }
 
     /**

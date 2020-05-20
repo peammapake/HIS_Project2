@@ -183,7 +183,7 @@ public class DBManager
                 queryBill += "|";
         }
         queryBill += "');";
-        System.out.println(queryBill); //still testing 
+        System.out.println(queryBill); //still testing
     }
 
     /**
@@ -331,6 +331,29 @@ public class DBManager
             PreparedStatement prepareStmt = DB.prepareStatement(query);
             prepareStmt.setInt(1,doctorID);
             RS = prepareStmt.executeQuery();
+            prepareStmt.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return RS;
+    }
+
+    /**
+     * Query all undischarged patient from admission list in database
+     * @param doctorID
+     * @return
+     */
+    public static ResultSet getAdmissions(int doctorID)
+    {
+        String query = "SELECT * FROM admissions WHERE doctorID = ? AND dischargeDate IS NULL";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setInt(1, doctorID);
+            RS = prepareStmt.executeQuery();
+            prepareStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -353,6 +376,8 @@ public class DBManager
             PreparedStatement prepareStmt = DB.prepareStatement(query);
             prepareStmt.setInt(1, doctorID);
             prepareStmt.setInt(2, patientID);
+            prepareStmt.execute();
+            prepareStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

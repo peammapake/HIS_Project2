@@ -7,6 +7,9 @@ public class PatientList
     /**Array list containing all instances of patients loaded*/
     private static ArrayList<Patient> patients = new ArrayList<Patient>();
 
+    /**ArrayList containing all instances of patients currently waiting in queue of the specific doctor*/
+    //private static ArrayList<Patient> queuePatients = new ArrayList<Patient>();
+
     /**
      * Initialize query all patient from the database
      * @param patientRS ResultSet of all query patients

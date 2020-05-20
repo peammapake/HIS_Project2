@@ -11,7 +11,7 @@ public class Nurse extends Staff {
     private Patient currentPatient = null;
 
     /**List of all available doctor*/
-    private ArrayList<Doctor> doctorList = new ArrayList<Doctor>();
+    private ArrayList<Doctor> doctorList = null;
 
     /**Static list of nurse in system*/
     public static ArrayList<Nurse> nurseArrayList = new ArrayList<Nurse>();
@@ -81,6 +81,7 @@ public class Nurse extends Staff {
      */
     public void loadStaffData() throws SQLException
     {
+        doctorList = new ArrayList<Doctor>();
         ResultSet doctorRS = DBManager.getStaffList("DOCTOR");
         while(doctorRS.next())
         {
