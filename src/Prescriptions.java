@@ -9,6 +9,11 @@ public class Prescriptions
 
     }
 
+    public void addMedicine(String medicine)
+    {
+        medicines.add(medicine);
+    }
+
     public String getMedicine(int index)
     {
         return medicines.get(index);

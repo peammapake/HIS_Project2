@@ -10,6 +10,12 @@ public class LabTestList
 
     }
 
+    public void addLabTest(String name, String result)
+    {
+        LabTest labTest = new LabTest(name, result);
+        labTests.add(labTest);
+    }
+
     public String getLabTest(int index)
     {
         LabTest lt = labTests.get(index);

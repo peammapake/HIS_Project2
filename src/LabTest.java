@@ -4,9 +4,10 @@ public class LabTest
 
     private String result;
 
-    public LabTest()
+    public LabTest(String name, String result)
     {
-
+        this.labTestName = name;
+        this.result = result;
     }
 
     public String getLabTestName()

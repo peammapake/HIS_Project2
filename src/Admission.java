@@ -73,6 +73,11 @@ public class Admission {
         return diagnosis;
     }
 
+    public void setDiagnosis(String diagnosis)
+    {
+        this.diagnosis = diagnosis;
+    }
+
     public String getAssignedDoctor()
     {
         return assignedDoctor;

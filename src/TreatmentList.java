@@ -9,6 +9,11 @@ public class TreatmentList {
 
     }
 
+    public void addTreatment(String treatment)
+    {
+        treatments.add(treatment);
+    }
+
     public String getTreatment(int index)
     {
         return treatments.get(index);

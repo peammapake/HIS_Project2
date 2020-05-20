@@ -192,6 +192,10 @@ public class Doctor extends Staff
         while (bContinue)
         {
             String symptom = IOUtils.getString("Input Symptom (enter 0 to return): ");
+            if (symptom.equals("0"))
+            {
+                break;
+            }
             pAdmission.getSymptoms().addSymptom(symptom);
             String cont = IOUtils.getString("Record more symptoms?(y/n): ");
             if (cont.equals("y"))
@@ -214,7 +218,30 @@ public class Doctor extends Staff
      */
     private void recordTreatments()
     {
-
+        boolean bContinue = true;
+        Admission pAdmission = currentPatient.getAdmission();
+        while (bContinue)
+        {
+            String treatment = IOUtils.getString("Input treatment (enter 0 to return): ");
+            if (treatment.equals("0"))
+            {
+                break;
+            }
+            pAdmission.getTreatments().addTreatment(treatment);
+            String cont = IOUtils.getString("Record more treatment?(y/n): ");
+            if (cont.equals("y"))
+            {
+                bContinue = true;
+            }
+            else if (cont.equals("n"))
+            {
+                bContinue = false;
+            }
+            else
+            {
+                bContinue = false;
+            }
+        }
     }
 
     /**
@@ -222,12 +249,37 @@ public class Doctor extends Staff
      */
     private void recordLabTests()
     {
-
+        boolean bContinue = true;
+        Admission pAdmission = currentPatient.getAdmission();
+        while (bContinue)
+        {
+            String labTest = IOUtils.getString("Input Lab test name (enter 0 to return): ");
+            if (labTest.equals("0"))
+            {
+                break;
+            }
+            String result = IOUtils.getString("Input Lab test result: ");
+            pAdmission.getLabTests().addLabTest(labTest, result);
+            String cont = IOUtils.getString("Record more lab test?(y/n): ");
+            if (cont.equals("y"))
+            {
+                bContinue = true;
+            }
+            else if (cont.equals("n"))
+            {
+                bContinue = false;
+            }
+            else
+            {
+                bContinue = false;
+            }
+        }
     }
 
     private void recordDiagnosis()
     {
-
+        String diagnosis = IOUtils.getString("Enter patient's diagnosis : ");
+        currentPatient.getAdmission().setDiagnosis(diagnosis);
     }
 
     /**
@@ -235,7 +287,31 @@ public class Doctor extends Staff
      */
     private void prescribe()
     {
+        boolean bContinue = true;
+        Admission pAdmission = currentPatient.getAdmission();
+        while (bContinue)
+        {
+            String medicine = IOUtils.getString("Input medicine (enter 0 to return): ");
+            if (medicine.equals("0"))
+            {
+                break;
+            }
+            pAdmission.getPrescriptions().addMedicine(medicine);
+            String cont = IOUtils.getString("Record more prescription?(y/n): ");
+            if (cont.equals("y"))
+            {
+                bContinue = true;
+            }
+            else if (cont.equals("n"))
+            {
+                bContinue = false;
 
+            }
+            else
+            {
+                bContinue = false;
+            }
+        }
     }
 
     /**
