@@ -258,7 +258,20 @@ public class Doctor extends Staff
             {
                 break;
             }
-            String result = IOUtils.getString("Input Lab test result: ");
+            String result = "-";
+            boolean bEmpty = true;
+            while (bEmpty)
+            {
+                result = IOUtils.getString("Input Lab test result: ");
+                if (!result.isEmpty())
+                {
+                    bEmpty = false;
+                }
+                else
+                {
+                    System.out.println("Result cannot be empty. Input again.");
+                }
+            }
             pAdmission.getLabTests().addLabTest(labTest, result);
             String cont = IOUtils.getString("Record more lab test?(y/n): ");
             if (cont.equals("y"))
