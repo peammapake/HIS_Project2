@@ -83,9 +83,10 @@ public class Doctor extends Staff
     @Override
     public void loadStaffData() throws SQLException
     {
-        ResultSet patientRS = DBManager.getPatientListInQueue(getStaffID());
+        ResultSet patientRS = DBManager.getPatientList();
         PatientList.initialize(patientRS);
         patientRS.close();
+        ResultSet queueRS = DBManager.getPatientListInQueue(getStaffID());
     }
 
     /**
