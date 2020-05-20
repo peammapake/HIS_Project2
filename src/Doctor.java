@@ -203,7 +203,7 @@ public class Doctor extends Staff
             {
                 break;
             }
-            pAdmission.getSymptoms().addSymptom(symptom);
+            pAdmission.addSymptom(symptom);
             String cont = IOUtils.getString("Record more symptoms?(y/n): ");
             if (cont.equals("y"))
             {
@@ -234,7 +234,7 @@ public class Doctor extends Staff
             {
                 break;
             }
-            pAdmission.getTreatments().addTreatment(treatment);
+            pAdmission.addTreatment(treatment);
             String cont = IOUtils.getString("Record more treatment?(y/n): ");
             if (cont.equals("y"))
             {
@@ -279,7 +279,7 @@ public class Doctor extends Staff
                     System.out.println("Result cannot be empty. Input again.");
                 }
             }
-            pAdmission.getLabTests().addLabTest(labTest, result);
+            pAdmission.addLabTest(labTest, result);
             String cont = IOUtils.getString("Record more lab test?(y/n): ");
             if (cont.equals("y"))
             {
@@ -316,7 +316,7 @@ public class Doctor extends Staff
             {
                 break;
             }
-            pAdmission.getPrescriptions().addMedicine(medicine);
+            pAdmission.addPrescription(medicine);
             String cont = IOUtils.getString("Record more prescription?(y/n): ");
             if (cont.equals("y"))
             {

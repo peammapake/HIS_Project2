@@ -1,10 +1,8 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class Admission {
 
@@ -140,22 +138,22 @@ public class Admission {
         return dischargeDate;
     }
 
-    public ArrayList getSymptoms()
+    public ArrayList<String> getSymptoms()
     {
         return symptomList;
     }
 
-    public ArrayList getTreatments()
+    public ArrayList<String> getTreatments()
     {
         return treatmentList;
     }
 
-    public ArrayList getLabTests()
+    public ArrayList<LabTest> getLabTests()
     {
         return labTestList;
     }
 
-    public ArrayList getPrescriptions()
+    public ArrayList<String> getPrescriptions()
     {
         return prescriptionList;
     }
