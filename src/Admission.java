@@ -1,33 +1,19 @@
 import java.util.Date;
 
 public class Admission {
-    /**
-     * Date of admission
-     */
+    /**Date of admission*/
     private Date admitDate;
-    /**
-     * List of symptoms in checkup
-     */
+    /**List of symptoms in checkup*/
     private SymptomList symptoms = new SymptomList();
-    /**
-     * List of treatment
-     */
+    /**List of treatment*/
     private TreatmentList treatments = new TreatmentList();
-    /**
-     * List of lab test
-     */
+    /**List of lab test*/
     private LabTestList labTests = new LabTestList();
-    /**
-     * List of medicine prescribe to this patient
-     */
+    /**List of medicine prescribe to this patient*/
     private Prescriptions prescriptions = new Prescriptions();
-    /**
-     * Doctor's diagnosis of this patient checkup
-     */
+    /**Doctor's diagnosis of this patient checkup*/
     private String diagnosis;
-    /**
-     * Name of assigned doctor
-     */
+    /**Name of assigned doctor*/
     private String assignedDoctor;
 
     /**

@@ -93,6 +93,8 @@ public class Patient
 
     }
 
+    //public void newAdmission
+
     //Getter and Setter zone--------------------------------------------------------------------------------------------
 
     /**
