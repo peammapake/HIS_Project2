@@ -1,10 +1,11 @@
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
  * Database Manager class responsible for all communication
  * with the Hospital Information Database
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
  */
 public class DBManager
 {
