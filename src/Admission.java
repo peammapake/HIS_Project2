@@ -173,6 +173,14 @@ public class Admission {
     //Getter/Setter zone------------------------------------------------------------------------------------------------
 
     /**
+     * @return admission ID
+     */
+    public int getAdmitID()
+    {
+        return admitID;
+    }
+
+    /**
      * @return admit date
      */
     public Timestamp getAdmitDate()

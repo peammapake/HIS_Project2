@@ -152,39 +152,11 @@ public class DBManager
     /**
      * Add new billing into the database, clerk can then access
      * these data to generate bill for patient
-     * @param bill bill object obtained after discharging patient
+     * @param patient current patient to add bill for their admission
      */
-    public static void addBill(Bill bill)
+    public static boolean addBill(Patient patient)
     {
-        String[] name = bill.getPatientName().split(" ");
-        ArrayList<String> treatments = bill.getTreatments();
-        ArrayList<String> labTest = bill.getLabTest();
-        ArrayList<String> prescription = bill.getPrescription();
-
-        String queryBill = "INSERT INTO `bills`(`bill_fName`, `bill_lName`, `patientID`, `treatmentList`, `labTestList`, `prescriptionList`) VALUES (";
-        queryBill += "'" + name[0] + "','" + name[1] + "','";
-        for(int i = 0; i < treatments.size(); i++)
-        {
-            queryBill += treatments.get(i);
-            if(i+1 != treatments.size())
-                queryBill += "|";
-        }
-        queryBill += "','";
-        for(int i = 0; i < labTest.size(); i++)
-        {
-            queryBill += labTest.get(i);
-            if(i+1 != labTest.size())
-                queryBill += "|";
-        }
-        queryBill += "','";
-        for(int i = 0; i < prescription.size(); i++)
-        {
-            queryBill += prescription.get(i);
-            if(i+1 != prescription.size())
-                queryBill += "|";
-        }
-        queryBill += "');";
-        System.out.println(queryBill); //still testing
+        return true;
     }
 
     /**

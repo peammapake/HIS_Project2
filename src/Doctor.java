@@ -253,7 +253,18 @@ public class Doctor extends Staff
                 break loop1;
             if(index == -999)
                 continue loop1;
-            System.out.println("Confirm discharge patient []: ");
+            String confirm = IOUtils.getStringSameLine("Confirm discharge patient [YES/NO]: ");
+            if(confirm.equalsIgnoreCase("YES"))
+            {
+                int admissionID = currentPatient.getAdmission().getAdmitID();
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                if(DBManager.dischargePatient(admissionID,time))
+                    System.out.println("Successfully discharge patient at: " + time);
+                else
+                    System.out.println("Error: Update discharge time on database unsuccessful");
+                if(DBManager.addBill(currentPatient))
+                    System.out.println("UNDERCONSTRUCTION");
+            }
         }
     }
 
