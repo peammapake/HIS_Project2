@@ -67,8 +67,10 @@ public class Patient
         System.out.println("Patient ID : " + getPatientID());
         System.out.println("Name : " + getFirstName() + " " + getLastName());
         System.out.println("Sex : " + getSex());
-        System.out.println("Address: " + getAddress());
-        System.out.println("Phone: " + getPhone());
+        if(address != null)
+            System.out.println("Address: " + getAddress());
+        if(phone != null)
+            System.out.println("Phone: " + getPhone());
         System.out.println("-----------------------------------------------------------------------------------");
     }
 
