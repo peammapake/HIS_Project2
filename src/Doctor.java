@@ -179,7 +179,7 @@ public class Doctor extends Staff
     private void recordNewAdmission()
     {
         if(DBManager.addAdmission(currentPatient.getAdmission()))
-            System.out.println("Successfully add "+ currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new admission");
+            System.out.println("Successfully add "+ currentPatient.getFirstName() + " " + currentPatient.getLastName() + " new admission");
         else
             System.out.println("Error: Add new admission to database unsuccessful");
     }

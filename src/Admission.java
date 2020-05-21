@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,19 +23,19 @@ public class Admission {
     private Timestamp dischargeDate;
 
     /**Doctor's diagnosis of this patient checkup*/
-    private String diagnosis;
+    private String diagnosis = "";
 
     /**List of symptoms in checkup*/
-    private ArrayList<String> symptomList = null;
+    private ArrayList<String> symptomList = new ArrayList<String>();
 
     /**List of lab test*/
-    private ArrayList<LabTest> labTestList = null;
+    private ArrayList<LabTest> labTestList = new ArrayList<LabTest>();
 
     /**List of treatments*/
-    private ArrayList<String> treatmentList = null;
+    private ArrayList<String> treatmentList = new ArrayList<String>();
 
     /**List of medicine prescribe to this patient*/
-    private ArrayList<String> prescriptionList = null;
+    private ArrayList<String> prescriptionList = new ArrayList<String>();
 
     /**Patient ID*/
     private int patientID;
@@ -43,7 +44,7 @@ public class Admission {
     private int doctorID;
 
     /**
-     * Constructor for admission
+     * Constructor for admission using resultset given from database query
      * @param admission ResultSet pointing at the row that needs for constructing new admission
      */
     public Admission(ResultSet admission) throws SQLException
@@ -74,9 +75,9 @@ public class Admission {
                 {
                     addLabTest(labTest[i], labResult[i]);
                 }
-            } else
-                System.out.println("Error: patientID: " + patientID
-                        + " Lab test list is incomplete, Please contact administrator for further inspection");
+            }
+            else
+                System.out.println("Error: patientID: " + patientID + " Lab test list is incomplete, Please contact administrator for further inspection");
         }
     }
 
@@ -257,7 +258,7 @@ public class Admission {
         for(int i = 0; i < labTestList.size(); i++)
         {
             labResults += labTestList.get(i).getResult();
-            if(i < labTestList.size())
+            if(i < labTestList.size() - 1)
                 labResults += "|";
         }
         return labResults;
@@ -276,7 +277,7 @@ public class Admission {
         for(int i = 0; i < prescriptionList.size(); i++)
         {
             prescriptions += prescriptionList.get(i);
-            if(i < prescriptionList.size())
+            if(i < prescriptionList.size() - 1)
                 prescriptions += "|";
         }
         return prescriptions;

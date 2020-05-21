@@ -393,14 +393,14 @@ public class DBManager
         try
         {
             PreparedStatement preparedStatement = DB.prepareStatement(query);
-            preparedStatement.setString(1, admission.getDiagnosis());
-            preparedStatement.setString(2, admission.getSymptoms());
-            preparedStatement.setString(3, admission.getLabTests());
-            preparedStatement.setString(4, admission.getLabResults());
-            preparedStatement.setString(5, admission.getTreatments());
-            preparedStatement.setString(6, admission.getPrescriptions());
-            preparedStatement.setInt(7, admission.getPatientID());
-            preparedStatement.setInt(8, admission.getAssignedDoctor());
+            preparedStatement.setObject(1, admission.getDiagnosis());
+            preparedStatement.setObject(2, admission.getSymptoms());
+            preparedStatement.setObject(3, admission.getLabTests());
+            preparedStatement.setObject(4, admission.getLabResults());
+            preparedStatement.setObject(5, admission.getTreatments());
+            preparedStatement.setObject(6, admission.getPrescriptions());
+            preparedStatement.setObject(7, admission.getPatientID());
+            preparedStatement.setObject(8, admission.getAssignedDoctor());
             preparedStatement.execute();
             preparedStatement.close();
         } catch (SQLException e)
@@ -422,14 +422,14 @@ public class DBManager
         try
         {
             PreparedStatement preparedStatement = DB.prepareStatement(query);
-            preparedStatement.setString(1, admission.getDiagnosis());
-            preparedStatement.setString(2, admission.getSymptoms());
-            preparedStatement.setString(3, admission.getLabTests());
-            preparedStatement.setString(4, admission.getLabResults());
-            preparedStatement.setString(5, admission.getTreatments());
-            preparedStatement.setString(6, admission.getPrescriptions());
-            preparedStatement.setInt(7, admission.getPatientID());
-            preparedStatement.setInt(8, admission.getAssignedDoctor());
+            preparedStatement.setObject(1, admission.getDiagnosis());
+            preparedStatement.setObject(2, admission.getSymptoms());
+            preparedStatement.setObject(3, admission.getLabTests());
+            preparedStatement.setObject(4, admission.getLabResults());
+            preparedStatement.setObject(5, admission.getTreatments());
+            preparedStatement.setObject(6, admission.getPrescriptions());
+            preparedStatement.setObject(7, admission.getPatientID());
+            preparedStatement.setObject(8, admission.getAssignedDoctor());
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e)
