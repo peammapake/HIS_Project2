@@ -1,6 +1,12 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class represent patient in hospital information system
+ * hold information of patient and instance of admission record
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
+ */
 public class Patient
 {
     /**Patient ID of the current patient*/
@@ -189,8 +195,7 @@ public class Patient
     }
 
     /**
-     * ???????
-     * @return
+     * @return patient admission record
      */
     public Admission getAdmission()
     {
