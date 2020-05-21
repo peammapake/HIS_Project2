@@ -64,6 +64,10 @@ public class Patient
         this.phone = phone;
     }
 
+    /**
+     * Create new admission record for this patient
+     * @param doctorID  ID of doctor assigned to this patient in this particular admission
+     */
     public void addAdmission(int doctorID)
     {
         admission = new Admission(doctorID, getPatientID());
