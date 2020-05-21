@@ -1,3 +1,9 @@
+/**
+ * This class hold information of one lab test
+ * lab test name and its result
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
+ */
 public class LabTest
 {
     /**The method name of the lab test*/
@@ -18,11 +24,17 @@ public class LabTest
         this.result = result;
     }
 
+    /**
+     * @return lab test name
+     */
     public String getLabTestName()
     {
         return labTestName;
     }
 
+    /**
+     * @return result of the lab test
+     */
     public String getResult()
     {
         return result;

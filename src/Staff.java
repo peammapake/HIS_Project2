@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  *  Abstract class represent staff in hospital system
- *  Create by YAKKIN_TONKATSU group
+ *  Create by   Nonthakorn Sukprom 60070503435
+ *              Bhimapaka Thapanangkun 60070503447
  */
 public abstract class Staff
 {
