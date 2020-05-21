@@ -14,7 +14,9 @@ public class Doctor extends Staff
     /** current selected patient*/
     private Patient currentPatient;
 
-    private ArrayList<Admission> admissions = new ArrayList<Admission>();
+    //private ArrayList<Admission> admissions = new ArrayList<Admission>();
+
+    private ArrayList<Patient> admissions = new ArrayList<Patient>();
 
     /** Static list of doctors in the system*/
     public static ArrayList<Doctor> doctorArrayList = new ArrayList<>();
@@ -60,7 +62,6 @@ public class Doctor extends Staff
                             admitPatient();
                         continue mainMenu;
                     case 2:
-
                         continue mainMenu;
                     case 3:
 
@@ -91,8 +92,9 @@ public class Doctor extends Staff
         ResultSet admissionRS = DBManager.getAdmissions(getStaffID());
         while(admissionRS.next())
         {
-
+            admissions.add(new Patient(admissionRS,true));
         }
+        admissionRS.close();
     }
 
     /**
@@ -106,7 +108,7 @@ public class Doctor extends Staff
         currentPatient = null;
         if(!PatientList.showPatients())
         {
-            System.out.println("--There is no patient in queue--");
+            System.out.println("---- There is no patient in queue ----");
             return false;
         }
         String patientName = PatientList.getPatient(0).getFirstName() + " " + PatientList.getPatient(0).getLastName();
@@ -135,13 +137,16 @@ public class Doctor extends Staff
     {
         System.out.println("-----------------------------------------------------------------------------------");
         currentPatient.printPatientBasicInfo();
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("---- Admission Form ----");
+        recordInformation();
 
     }
 
     /**
      *  Sub menu for record information to selected patient record
      */
-    public void recordInformation()
+    private void recordInformation()
     {
         System.out.println("---- Record Information ----");
         System.out.println("1 : Record Symptoms");

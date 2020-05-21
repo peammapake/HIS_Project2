@@ -331,7 +331,6 @@ public class DBManager
             PreparedStatement prepareStmt = DB.prepareStatement(query);
             prepareStmt.setInt(1,doctorID);
             RS = prepareStmt.executeQuery();
-            prepareStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();
@@ -341,19 +340,20 @@ public class DBManager
     }
 
     /**
-     * Query all undischarged patient from admission list in database
+     * Query all undischarged patient information and their admission
+     * information from database
      * @param doctorID
      * @return
      */
     public static ResultSet getAdmissions(int doctorID)
     {
-        String query = "SELECT * FROM admissions WHERE doctorID = ? AND dischargeDate IS NULL";
+        //String query = "SELECT * FROM admissions WHERE doctorID = ? AND dischargeDate IS NULL";
+        String query = "SELECT * FROM patients JOIN admissions ON patients.patientID = admissions.patientID WHERE admissions.doctorID = ? AND admissions.dischargeDate IS NULL";
         try
         {
             PreparedStatement prepareStmt = DB.prepareStatement(query);
             prepareStmt.setInt(1, doctorID);
             RS = prepareStmt.executeQuery();
-            prepareStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

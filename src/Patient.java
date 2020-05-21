@@ -16,14 +16,16 @@ public class Patient
     /**Phone number of patient, cannot be integer because 0 in front*/
     private String phone;
     /**Patient current admission*/
-    private Admission admission;
+    private Admission admission = null;
 
     /**
      * Constructor for patient include all patient basic information
+     * and current admission if this user is admitting to the hospital
      * @param patientInfo ResultSet from SQl query
+     * @param admit Status marking whether this patient is admitting to hospital or not
      * @throws SQLException input use ResultSet which require error handling
      */
-    public Patient(ResultSet patientInfo) throws SQLException
+    public Patient(ResultSet patientInfo, boolean admit) throws SQLException
     {
         patientID = patientInfo.getInt(1);
         firstName = patientInfo.getString(2);
@@ -31,6 +33,10 @@ public class Patient
         sex = patientInfo.getString(4);
         address = patientInfo.getString(5);
         phone = patientInfo.getString(6);
+        if(admit)
+        {
+            admission = new Admission(patientInfo);
+        }
     }
 
     /**
@@ -64,33 +70,18 @@ public class Patient
         System.out.println("Address: " + getAddress());
         System.out.println("Phone: " + getPhone());
         System.out.println("-----------------------------------------------------------------------------------");
-        /*System.out.println("Symptoms : ");
-        SymptomList symptoms = admission.getSymptoms();
-        for (int i = 0 ; i < symptoms.getSymptomSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + symptoms.getSymptom(i));
-        }
-        System.out.println("Treatment : ");
-        TreatmentList treatments = admission.getTreatments();
-        for (int i = 0 ; i < treatments.getTreatmentsSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + treatments.getTreatment(i));
-        }
-        System.out.println("Lab test and result : ");
-        LabTestList labTests = admission.getLabTests();
-        for (int i = 0 ; i < labTests.getLabTestSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + labTests.getLabTest(i));
-        }
-        System.out.println("Prescription : ");
-        Prescriptions prescriptions = admission.getPrescriptions();
-        for (int i = 0 ; i < prescriptions.getPrescriptionSize(); i++)
-        {
-            System.out.println("\t" + i + " - " + prescriptions.getMedicine(i));
-        }
-        System.out.println("Prescription : " + admission.getDiagnosis());
-        System.out.println("Assigned Doctor: " + admission.getAssignedDoctor());*/
+    }
 
+    /**
+     * Print admission of the patient if this patient is
+     * currently in admission
+     */
+    public void printCurrentAdmission()
+    {
+        if(this.admission == null)
+            System.out.println("This patient is not in admission currently");
+        else
+            this.admission.printAdmission();
     }
 
     //public void newAdmission

@@ -51,8 +51,8 @@ public class Nurse extends Staff {
                 switch (choice)
                 {
                     case 1:
-                        patientLookUp();
-                        assignDoctor();
+                        if(patientLookUp())
+                            assignDoctor();
                         continue mainMenu;
                     case 2:
                         registerPatient();
@@ -224,14 +224,14 @@ public class Nurse extends Staff {
      * User can choose to further assign the doctor for patient
      * or go back
      */
-    private void patientLookUp()
+    private boolean patientLookUp()
     {
         PatientList.showPatients();
         loop: while(true)
         {
             int index = IOUtils.getInteger("Specify Index to show patient's full info. (0 to return): ");
             if (index == 0)
-                break loop;
+                return false;
             if ((index < 0) || (index > PatientList.getSize()))
             {
                 System.out.println("Chosen doctor unavailable");
@@ -242,6 +242,7 @@ public class Nurse extends Staff {
             printPatientInfo();
             break;
         }
+        return true;
     }
 
 

@@ -30,11 +30,11 @@ public class Admission {
     /**List of medicine prescribe to this patient*/
     private ArrayList<String> prescriptionList = null;
 
-    /**ID of the assigned doctor*/
-    private int doctorID;
-
     /**Patient ID*/
     private int patientID;
+
+    /**ID of the assigned doctor*/
+    private int doctorID;
 
     /**
      * Constructor for admission
@@ -42,17 +42,20 @@ public class Admission {
      */
     public Admission(ResultSet admission) throws SQLException
     {
-        admitID = admission.getInt(1);
-        admitDate = admission.getTimestamp(2);
-        diagnosis = admission.getString(4);
-        symptomList = new ArrayList(Arrays.asList(admission.getString(5).split("\\|")));
-        String[] labTest = admission.getString(6).split("\\|");
-        String[] labResult = admission.getString(7).split("\\|");
-        treatmentList =  new ArrayList(Arrays.asList(admission.getString(8).split("\\|")));
-        prescriptionList = new ArrayList(Arrays.asList(admission.getString(9).split("\\|")));
-        doctorID = admission.getInt(10);
-        patientID = admission.getInt(11);
-        //Check in case some lab test lack result
+        admitID = admission.getInt(7);
+        admitDate = admission.getTimestamp(8);
+        diagnosis = admission.getString(10);
+        symptomList = new ArrayList(Arrays.asList(admission.getString(11).split("\\|")));
+        treatmentList =  new ArrayList(Arrays.asList(admission.getString(14).split("\\|")));
+        prescriptionList = new ArrayList(Arrays.asList(admission.getString(15).split("\\|")));
+        patientID = admission.getInt(16);
+        doctorID = admission.getInt(17);
+
+        String testString = admission.getString(12);
+        String resultString = admission.getString(13);
+        String[] labTest = testString.split("\\|");
+        String[] labResult = resultString.split("\\|");
+        //Check in case some lab test or result incomplete
         if(labTest.length == labResult.length)
         {
             for(int i = 0; i < labTest.length; i++)
