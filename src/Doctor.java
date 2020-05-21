@@ -1,21 +1,18 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
  *  Class represent Doctor in hospital information system
- *  Create by   Nonthakorn Sukprom 60070503435
- *              Bhimapaka Thapanangkun 60070503447
+ *  Create by YAKKIN_TONKATSU group
  */
 public class Doctor extends Staff
 {
-    /** List of patients assigned to doctor by nurse*/
-    private PatientList patients = null;
-
     /** current selected patient*/
     private Patient currentPatient;
 
-    private ArrayList<Patient> admissions = new ArrayList<Patient>();
+    private ArrayList<Patient> admitPatients = new ArrayList<Patient>();
 
     /** Static list of doctors in the system*/
     public static ArrayList<Doctor> doctorArrayList = new ArrayList<>();
@@ -61,13 +58,20 @@ public class Doctor extends Staff
                         {
                             admitPatient();
                             recordInformation();
+                            recordNewAdmission();
                         }
                         continue mainMenu;
                     case 2:
-
+                        showAdmissions();
+                        if(chooseAdmittedPatient())
+                        {
+                            currentPatient.printCurrentAdmission();
+                            recordInformation();
+                            recordModifyAdmission();
+                        }
                         continue mainMenu;
                     case 3:
-
+                        showAdmissions();
                         continue mainMenu;
                     case 4:
                         continue mainMenu;
@@ -95,7 +99,7 @@ public class Doctor extends Staff
         ResultSet admissionRS = DBManager.getAdmissions(getStaffID());
         while(admissionRS.next())
         {
-            admissions.add(new Patient(admissionRS,true));
+            admitPatients.add(new Patient(admissionRS,true));
         }
         admissionRS.close();
     }
@@ -106,7 +110,7 @@ public class Doctor extends Staff
      * First In First Out Strategy ONLY
      * @return return true if user chose to admit patient
      */
-    public boolean showPatientsInQueue()
+    private boolean showPatientsInQueue()
     {
         currentPatient = null;
         if(!PatientList.showPatients())
@@ -123,6 +127,41 @@ public class Doctor extends Staff
     }
 
     /**
+     * Print all admissions basic info of the current doctor
+     */
+    private void showAdmissions()
+    {
+        int index = 1;
+        System.out.println("-----------------------------------------------------------------------------------");
+        for(Patient admit: admitPatients)
+        {
+            String fName = admit.getFirstName();
+            String lName = admit.getLastName();
+            int pID = admit.getPatientID();
+            Timestamp date = admit.getAdmission().getAdmitDate();
+            System.out.println(index + " - " + fName + " " + lName + " Patient ID: " + pID + " Date: " + date);
+            index++;
+        }
+    }
+
+    private boolean chooseAdmittedPatient()
+    {
+        loop: while(true)
+        {
+            int index = -999;
+            index = IOUtils.getInteger("Choose patient by index (0 to return): ");
+            if(index == -999)
+                continue loop;
+            if(index == 0)
+                return false;
+            index--;
+            currentPatient = admitPatients.get(index);
+            break;
+        }
+        return true;
+    }
+
+    /**
      *  Admit first patient in queue to the hospital,
      *  remove the patient from the waiting list
      */
@@ -134,6 +173,22 @@ public class Doctor extends Staff
         PatientList.removePatient(0);
         System.out.println("-----------------------------------------------------------------------------------");
         currentPatient.printPatientBasicInfo();
+    }
+
+    private void recordNewAdmission()
+    {
+        if(DBManager.addAdmission(currentPatient.getAdmission()))
+            System.out.println("Successfully add "+ currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new admission");
+        else
+            System.out.println("Error: Add new admission to database unsuccessful");
+    }
+
+    private void recordModifyAdmission()
+    {
+        if(DBManager.updateAdmission(currentPatient.getAdmission()))
+            System.out.println("Successfully update admission of " + currentPatient.getFirstName() + " " + currentPatient.getLastName());
+        else
+            System.out.println("Error: Modify admission to database unsuccessful");
     }
 
     /**
@@ -169,10 +224,6 @@ public class Doctor extends Staff
                     prescribe();
                     continue loop;
                 case 6:
-                    if(DBManager.addAdmission(currentPatient.getAdmission()))
-                        System.out.println("Successfully add "+ currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new admission");
-                    else
-                        System.out.println("Error: Add new admission to database unsuccessful");
                     break loop;
                 default:
                     System.out.println("Invalid input");
@@ -339,9 +390,6 @@ public class Doctor extends Staff
         }
     }
 
-    /**
-     * Ask for diagnosis record of the selected patient
-     */
     private void recordDiagnosis()
     {
         boolean bEmpty = true;
@@ -375,7 +423,7 @@ public class Doctor extends Staff
             bEmpty = true;
             while (bEmpty)
             {
-                medicine = IOUtils.getString("Enter patient's diagnosis : ");
+                medicine = IOUtils.getString("Enter prescription: ");
                 if (medicine.trim().isEmpty())
                 {
                     System.out.println("Input cannot be blank. Try again.");

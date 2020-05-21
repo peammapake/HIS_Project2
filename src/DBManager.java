@@ -396,12 +396,41 @@ public class DBManager
             preparedStatement.setString(1, admission.getDiagnosis());
             preparedStatement.setString(2, admission.getSymptoms());
             preparedStatement.setString(3, admission.getLabTests());
-            preparedStatement.setString(4, admission.getLabResult());
+            preparedStatement.setString(4, admission.getLabResults());
             preparedStatement.setString(5, admission.getTreatments());
             preparedStatement.setString(6, admission.getPrescriptions());
             preparedStatement.setInt(7, admission.getPatientID());
             preparedStatement.setInt(8, admission.getAssignedDoctor());
             preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param admission
+     * @return
+     */
+    public static boolean updateAdmission(Admission admission)
+    {
+        String query = "UPDATE admissions SET diagnosis = ?, symptoms = ?, labTests = ?, labResult = ?, treatments = ?, prescription = ? WHERE patientID = ? AND doctorID = ?";
+        try
+        {
+            PreparedStatement preparedStatement = DB.prepareStatement(query);
+            preparedStatement.setString(1, admission.getDiagnosis());
+            preparedStatement.setString(2, admission.getSymptoms());
+            preparedStatement.setString(3, admission.getLabTests());
+            preparedStatement.setString(4, admission.getLabResults());
+            preparedStatement.setString(5, admission.getTreatments());
+            preparedStatement.setString(6, admission.getPrescriptions());
+            preparedStatement.setInt(7, admission.getPatientID());
+            preparedStatement.setInt(8, admission.getAssignedDoctor());
+            preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e)
         {

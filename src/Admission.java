@@ -187,9 +187,16 @@ public class Admission {
         return dischargeDate;
     }
 
+    /**
+     * Return list of symptom record in this admission as plain string
+     * separated by "|"
+     * @return  list of symptoms, null if empty
+     */
     public String getSymptoms()
     {
         String symptoms = null;
+        if(symptomList == null)
+            return null;
         for(int i = 0; i < symptomList.size(); i++)
         {
             symptoms += symptomList.get(i);
@@ -202,11 +209,13 @@ public class Admission {
     /**
      * Return list of treatment record in this admission as plain string
      * separated by "|"
-     * @return  list of treatment
+     * @return  list of treatment, null if empty
      */
     public String getTreatments()
     {
         String treatments = null;
+        if(treatmentList == null)
+            return null;
         for(int i = 0; i < treatmentList.size(); i++)
         {
             treatments += treatmentList.get(i);
@@ -219,11 +228,13 @@ public class Admission {
     /**
      * Return list of lab test record in this admission as plain string
      * separated by "|"
-     * @return  list of lab test
+     * @return  list of lab test, null if empty
      */
     public String getLabTests()
     {
         String labTests = null;
+        if(labTestList == null)
+            return null;
         for(int i = 0; i < labTestList.size(); i++)
         {
             labTests += labTestList.get(i).getLabTestName();
@@ -236,11 +247,13 @@ public class Admission {
     /**
      * Return list of lab test result record in this admission as plain string
      * separated by "|"
-     * @return  list of lab test result
+     * @return  list of lab test result, null if empty
      */
-    public String getLabResult()
+    public String getLabResults()
     {
         String labResults = null;
+        if(labTestList == null)
+            return null;
         for(int i = 0; i < labTestList.size(); i++)
         {
             labResults += labTestList.get(i).getResult();
@@ -253,11 +266,13 @@ public class Admission {
     /**
      * Return list of prescription record in this admission as plain string
      * separated by "|"
-     * @return  list medicine in prescription
+     * @return  list medicine in prescription, null if empty
      */
     public String getPrescriptions()
     {
         String prescriptions = null;
+        if(prescriptionList == null)
+            return null;
         for(int i = 0; i < prescriptionList.size(); i++)
         {
             prescriptions += prescriptionList.get(i);
