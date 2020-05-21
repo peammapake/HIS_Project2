@@ -46,9 +46,12 @@ public class Admission {
         admitID = admission.getInt(7);
         admitDate = admission.getTimestamp(8);
         diagnosis = admission.getString(10);
-        symptomList = new ArrayList(Arrays.asList(admission.getString(11).split("\\|")));
-        treatmentList =  new ArrayList(Arrays.asList(admission.getString(14).split("\\|")));
-        prescriptionList = new ArrayList(Arrays.asList(admission.getString(15).split("\\|")));
+        if(admission.getString(11) != null)
+            symptomList = new ArrayList(Arrays.asList(admission.getString(11).split("\\|")));
+        if(admission.getString(14) != null)
+            treatmentList =  new ArrayList(Arrays.asList(admission.getString(14).split("\\|")));
+        if(admission.getString(15) != null)
+            prescriptionList = new ArrayList(Arrays.asList(admission.getString(15).split("\\|")));
         patientID = admission.getInt(16);
         doctorID = admission.getInt(17);
 

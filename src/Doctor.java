@@ -127,8 +127,8 @@ public class Doctor extends Staff
      */
     private void admitPatient()
     {
-        DBManager.removeQueue(getStaffID(), currentPatient.getPatientID());
         currentPatient = PatientList.getPatient(0);
+        DBManager.removeQueue(getStaffID(), currentPatient.getPatientID());
         currentPatient.addAdmission(getStaffID());
         PatientList.removePatient(0);
         System.out.println("-----------------------------------------------------------------------------------");
@@ -289,6 +289,7 @@ public class Doctor extends Staff
         {
             String result = "";
             String labTest = "";
+            bEmpty = true;
             while (bEmpty)
             {
                 labTest = IOUtils.getString("Input Lab test name (enter 0 to return): ");
