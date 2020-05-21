@@ -1,3 +1,4 @@
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -22,7 +23,7 @@ public class Admission {
     private ArrayList<String> symptomList = null;
 
     /**List of lab test*/
-    private ArrayList<LabTest> labTestList = new ArrayList<LabTest>();
+    private ArrayList<LabTest> labTestList = null;
 
     /**List of treatments*/
     private ArrayList<String> treatmentList = null;
@@ -69,9 +70,23 @@ public class Admission {
                 System.out.println("Error: patientID: " + patientID
                         + " Lab test list is incomplete, Please contact administrator for further inspection");
         }
-
     }
 
+    /**
+     * Overloading Admission constructor to be able to accept creating of new
+     * admission of a patient
+     * @param doctorID ID of the doctor responsible
+     * @param patientID ID of the patient to take admission
+     */
+    public Admission(int doctorID, int patientID)
+    {
+        symptomList = new ArrayList<String>();
+        treatmentList = new ArrayList<String>();
+        prescriptionList = new ArrayList<String>();
+        labTestList = new ArrayList<LabTest>();
+        this.patientID = patientID;
+        this.doctorID = doctorID;
+    }
 
     public void printAdmission()
     {
@@ -154,24 +169,64 @@ public class Admission {
         return dischargeDate;
     }
 
-    public ArrayList<String> getSymptoms()
+    public String getSymptoms()
     {
-        return symptomList;
+        String symptoms = null;
+        for(int i = 0; i < symptomList.size(); i++)
+        {
+            symptoms += symptomList.get(i);
+            if(i < symptomList.size() - 1)
+                symptoms += "|";
+        }
+        return symptoms;
     }
 
-    public ArrayList<String> getTreatments()
+    public String getTreatments()
     {
-        return treatmentList;
+        String treatments = null;
+        for(int i = 0; i < treatmentList.size(); i++)
+        {
+            treatments += treatmentList.get(i);
+            if(i < treatmentList.size() - 1)
+                treatments += "|";
+        }
+        return  treatments;
     }
 
-    public ArrayList<LabTest> getLabTests()
+    public String getLabTests()
     {
-        return labTestList;
+        String labTests = null;
+        for(int i = 0; i < labTestList.size(); i++)
+        {
+            labTests += labTestList.get(i).getLabTestName();
+            if(i < labTestList.size() - 1)
+                labTests += "|";
+        }
+        return  labTests;
     }
 
-    public ArrayList<String> getPrescriptions()
+    public String getLabResult()
     {
-        return prescriptionList;
+        String labResults = null;
+        for(int i = 0; i < labTestList.size(); i++)
+        {
+            labResults += labTestList.get(i).getResult();
+            if(i < labTestList.size())
+                labResults += "|";
+        }
+        return labResults;
+    }
+
+    public String getPrescriptions()
+    {
+        String prescriptions = null;
+        for(int i = 0; i < prescriptionList.size(); i++)
+        {
+            prescriptions += prescriptionList.get(i);
+            if(i < prescriptionList.size())
+                prescriptions += "|";
+        }
+        return prescriptions;
     }
 
     public String getDiagnosis()
@@ -179,14 +234,20 @@ public class Admission {
         return diagnosis;
     }
 
+    public int getAssignedDoctor()
+    {
+        return doctorID;
+    }
+
+    public int getPatientID()
+    {
+        return patientID;
+    }
+
     public void setDiagnosis(String diagnosis)
     {
         this.diagnosis = diagnosis;
     }
 
-    public int getAssignedDoctor()
-    {
-        return doctorID;
-    }
 
 }

@@ -14,8 +14,6 @@ public class Doctor extends Staff
     /** current selected patient*/
     private Patient currentPatient;
 
-    //private ArrayList<Admission> admissions = new ArrayList<Admission>();
-
     private ArrayList<Patient> admissions = new ArrayList<Patient>();
 
     /** Static list of doctors in the system*/
@@ -59,9 +57,13 @@ public class Doctor extends Staff
                 {
                     case 1:
                         if(showPatientsInQueue())
+                        {
                             admitPatient();
+                            recordInformation();
+                        }
                         continue mainMenu;
                     case 2:
+
                         continue mainMenu;
                     case 3:
 
@@ -100,8 +102,8 @@ public class Doctor extends Staff
     /**
      * print list of patients assigned to this doctor
      * and choose whether to admit the patient
-     * If choose to admit, remove patient from the waiting list
      * First In First Out Strategy ONLY
+     * @return return true if user chose to admit patient
      */
     public boolean showPatientsInQueue()
     {
@@ -116,31 +118,21 @@ public class Doctor extends Staff
         String confirmation = IOUtils.getStringSameLine("Proceed to admit " + patientName + "?[YES/NO]: ").trim();
         if(!confirmation.equalsIgnoreCase("YES"))
             return false;
-        currentPatient = PatientList.getPatient(0);
         return true;
     }
 
     /**
-     * Select patient from the list and store in currentPatient
-     * @param index index of patient in the list
+     *  Admit first patient in queue to the hospital,
+     *  remove the patient from the waiting list
      */
-    public void selectPatient(int index)
+    private void admitPatient()
     {
-        currentPatient = patients.getPatient(index);
-    }
-
-    /**
-     *  Admit current chosen patient to the hospital,
-     *  remove the patient name from the waiting list
-     */
-    public void admitPatient()
-    {
+        DBManager.removeQueue(getStaffID(), currentPatient.getPatientID());
+        currentPatient = PatientList.getPatient(0);
+        currentPatient.addAdmission(getStaffID());
+        PatientList.removePatient(0);
         System.out.println("-----------------------------------------------------------------------------------");
         currentPatient.printPatientBasicInfo();
-        System.out.println("-----------------------------------------------------------------------------------");
-        System.out.println("---- Admission Form ----");
-        recordInformation();
-
     }
 
     /**
@@ -154,31 +146,37 @@ public class Doctor extends Staff
         System.out.println("3 : Record Lab test and result");
         System.out.println("4 : Record Diagnosis");
         System.out.println("5 : Prescribe medicine");
-        System.out.println("6 : Return to main menu");
-        System.out.println("----------------------------");
-        int optionSelect = IOUtils.getInteger("Please enter your choice of action: ");
-        switch (optionSelect)
+        System.out.println("6 : Save information and return to main menu");
+        loop: while(true)
         {
-            case 1:
-                recordSymptoms();
-                break;
-            case 2:
-                recordTreatments();
-                break;
-            case 3:
-                recordLabTests();
-                break;
-            case 4:
-                recordDiagnosis();
-                break;
-            case 5:
-                prescribe();
-                break;
-            case 6:
-
-                break;
-            default:
-                System.out.println("Invalid input");
+            int optionSelect = IOUtils.getInteger("Please enter your choice of action: ");
+            switch (optionSelect)
+            {
+                case 1:
+                    recordSymptoms();
+                    continue loop;
+                case 2:
+                    recordTreatments();
+                    continue loop;
+                case 3:
+                    recordLabTests();
+                    continue loop;
+                case 4:
+                    recordDiagnosis();
+                    continue loop;
+                case 5:
+                    prescribe();
+                    continue loop;
+                case 6:
+                    if(DBManager.addAdmission(currentPatient.getAdmission()))
+                        System.out.println("Successfully add "+ currentPatient.getFirstName() + " " + currentPatient.getLastName() + "new admission");
+                    else
+                        System.out.println("Error: Add new admission to database unsuccessful");
+                    break loop;
+                default:
+                    System.out.println("Invalid input");
+                    continue loop;
+            }
         }
     }
 
@@ -190,13 +188,6 @@ public class Doctor extends Staff
 
     }
 
-    /**
-     * Print all information of selected patient
-     */
-    public void printPatientInfo()
-    {
-        currentPatient.printPatientBasicInfo();
-    }
 
     /**
      * Record information about symptom of selected patient
@@ -227,11 +218,11 @@ public class Doctor extends Staff
             }
             pAdmission.addSymptom(symptom);
             String cont = IOUtils.getString("Record more symptoms?(y/n): ");
-            if (cont.equals("y"))
+            if (cont.equalsIgnoreCase("y"))
             {
                 bContinue = true;
             }
-            else if (cont.equals("n"))
+            else if (cont.equalsIgnoreCase("n"))
             {
                 bContinue = false;
             }
@@ -271,11 +262,11 @@ public class Doctor extends Staff
             }
             pAdmission.addTreatment(treatment);
             String cont = IOUtils.getString("Record more treatment?(y/n): ");
-            if (cont.equals("y"))
+            if (cont.equalsIgnoreCase("y"))
             {
                 bContinue = true;
             }
-            else if (cont.equals("n"))
+            else if (cont.equalsIgnoreCase("n"))
             {
                 bContinue = false;
             }
@@ -310,7 +301,7 @@ public class Doctor extends Staff
                     bEmpty = false;
                 }
             }
-            if (labTest.equals("0"))
+            if (labTest.equalsIgnoreCase("0"))
             {
                 break;
             }
@@ -329,11 +320,11 @@ public class Doctor extends Staff
             }
             pAdmission.addLabTest(labTest, result);
             String cont = IOUtils.getString("Record more lab test?(y/n): ");
-            if (cont.equals("y"))
+            if (cont.equalsIgnoreCase("y"))
             {
                 bContinue = true;
             }
-            else if (cont.equals("n"))
+            else if (cont.equalsIgnoreCase("n"))
             {
                 bContinue = false;
             }
@@ -392,14 +383,13 @@ public class Doctor extends Staff
             }
             pAdmission.addPrescription(medicine);
             String cont = IOUtils.getString("Record more prescription?(y/n): ");
-            if (cont.equals("y"))
+            if (cont.equalsIgnoreCase("y"))
             {
                 bContinue = true;
             }
-            else if (cont.equals("n"))
+            else if (cont.equalsIgnoreCase("n"))
             {
                 bContinue = false;
-
             }
             else
             {

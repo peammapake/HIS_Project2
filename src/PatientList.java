@@ -57,6 +57,21 @@ public class PatientList
     }
 
     /**
+     * Remove patient from the list
+     * Indicate through index number
+     * @param index Indicate the patient to be remove
+     * @return status whether the system can remove the patient from list
+     */
+    public static boolean removePatient(int index)
+    {
+        if(patients.isEmpty())
+            return false;
+        patients.remove(index);
+        return true;
+    }
+
+
+    /**
      * Method to find patient from the ArrayList by their ID
      * Not efficient and might take long if size gets bigger
      * @param id

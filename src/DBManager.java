@@ -340,29 +340,6 @@ public class DBManager
     }
 
     /**
-     * Query all undischarged patient information and their admission
-     * information from database
-     * @param doctorID
-     * @return
-     */
-    public static ResultSet getAdmissions(int doctorID)
-    {
-        //String query = "SELECT * FROM admissions WHERE doctorID = ? AND dischargeDate IS NULL";
-        String query = "SELECT * FROM patients JOIN admissions ON patients.patientID = admissions.patientID WHERE admissions.doctorID = ? AND admissions.dischargeDate IS NULL";
-        try
-        {
-            PreparedStatement prepareStmt = DB.prepareStatement(query);
-            prepareStmt.setInt(1, doctorID);
-            RS = prepareStmt.executeQuery();
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-            return null;
-        }
-        return RS;
-    }
-
-    /**
      * Method to remove the first queue of the specific doctor from database
      * @param doctorID ID of the doctor assigned with the queue
      * @param patientID ID of patient of the given queue
@@ -386,4 +363,51 @@ public class DBManager
         return true;
     }
 
+    /**
+     * Query all undischarged patient information and their admission
+     * information from database
+     * @param doctorID
+     * @return
+     */
+    public static ResultSet getAdmissions(int doctorID)
+    {
+        //String query = "SELECT * FROM admissions WHERE doctorID = ? AND dischargeDate IS NULL";
+        String query = "SELECT * FROM patients JOIN admissions ON patients.patientID = admissions.patientID WHERE admissions.doctorID = ? AND admissions.dischargeDate IS NULL";
+        try
+        {
+            PreparedStatement prepareStmt = DB.prepareStatement(query);
+            prepareStmt.setInt(1, doctorID);
+            RS = prepareStmt.executeQuery();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
+        return RS;
+    }
+
+    public static boolean addAdmission(Admission admission)
+    {
+        String query = "INSERT INTO admissions (diagnosis, symptoms, labTests, labResult, treatments, prescriptions, patientID, doctorID)"
+                + "values(?,?,?,?,?,?,?,?)";
+        try
+        {
+            PreparedStatement preparedStatement = DB.prepareStatement(query);
+            preparedStatement.setString(1, admission.getDiagnosis());
+            preparedStatement.setString(2, admission.getSymptoms());
+            preparedStatement.setString(3, admission.getLabTests());
+            preparedStatement.setString(4, admission.getLabResult());
+            preparedStatement.setString(5, admission.getTreatments());
+            preparedStatement.setString(6, admission.getPrescriptions());
+            preparedStatement.setInt(7, admission.getPatientID());
+            preparedStatement.setInt(8, admission.getAssignedDoctor());
+            preparedStatement.execute();
+            preparedStatement.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
 }

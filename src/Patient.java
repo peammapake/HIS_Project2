@@ -58,6 +58,11 @@ public class Patient
         this.phone = phone;
     }
 
+    public void addAdmission(int doctorID)
+    {
+        admission = new Admission(doctorID, getPatientID());
+    }
+
     /**
      * Print basic information of the patient
      */
