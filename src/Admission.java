@@ -195,7 +195,7 @@ public class Admission {
      */
     public String getSymptoms()
     {
-        String symptoms = null;
+        String symptoms = "";
         if(symptomList == null)
             return null;
         for(int i = 0; i < symptomList.size(); i++)
@@ -214,7 +214,7 @@ public class Admission {
      */
     public String getTreatments()
     {
-        String treatments = null;
+        String treatments = "";
         if(treatmentList == null)
             return null;
         for(int i = 0; i < treatmentList.size(); i++)
@@ -233,7 +233,7 @@ public class Admission {
      */
     public String getLabTests()
     {
-        String labTests = null;
+        String labTests = "";
         if(labTestList == null)
             return null;
         for(int i = 0; i < labTestList.size(); i++)
@@ -252,7 +252,7 @@ public class Admission {
      */
     public String getLabResults()
     {
-        String labResults = null;
+        String labResults = "";
         if(labTestList == null)
             return null;
         for(int i = 0; i < labTestList.size(); i++)
@@ -271,7 +271,7 @@ public class Admission {
      */
     public String getPrescriptions()
     {
-        String prescriptions = null;
+        String prescriptions = "";
         if(prescriptionList == null)
             return null;
         for(int i = 0; i < prescriptionList.size(); i++)
