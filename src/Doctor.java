@@ -97,6 +97,7 @@ public class Doctor extends Staff
         patientRS.close();
 
         ResultSet admissionRS = DBManager.getAdmissions(getStaffID());
+        admitPatients = new ArrayList<Patient>();
         while(admissionRS.next())
         {
             admitPatients.add(new Patient(admissionRS,true));

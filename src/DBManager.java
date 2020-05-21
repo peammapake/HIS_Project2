@@ -418,7 +418,7 @@ public class DBManager
      */
     public static boolean updateAdmission(Admission admission)
     {
-        String query = "UPDATE admissions SET diagnosis = ?, symptoms = ?, labTests = ?, labResult = ?, treatments = ?, prescription = ? WHERE patientID = ? AND doctorID = ?";
+        String query = "UPDATE admissions SET diagnosis = ?, symptoms = ?, labTests = ?, labResult = ?, treatments = ?, prescriptions = ? WHERE patientID = ? AND doctorID = ?";
         try
         {
             PreparedStatement preparedStatement = DB.prepareStatement(query);
