@@ -154,6 +154,7 @@ public class Doctor extends Staff
         System.out.println("3 : Record Lab test and result");
         System.out.println("4 : Record Diagnosis");
         System.out.println("5 : Prescribe medicine");
+        System.out.println("6 : Return to main menu");
         System.out.println("----------------------------");
         int optionSelect = IOUtils.getInteger("Please enter your choice of action: ");
         switch (optionSelect)
@@ -173,6 +174,9 @@ public class Doctor extends Staff
             case 5:
                 prescribe();
                 break;
+            case 6:
+
+                break;
             default:
                 System.out.println("Invalid input");
         }
@@ -183,7 +187,7 @@ public class Doctor extends Staff
      */
     public void dischargePatient()
     {
-        // Should Create BillManager class to call and create Bill in that class
+
     }
 
     /**
@@ -200,10 +204,23 @@ public class Doctor extends Staff
     private void recordSymptoms()
     {
         boolean bContinue = true;
+        boolean bEmpty = true;
         Admission pAdmission = currentPatient.getAdmission();
         while (bContinue)
         {
-            String symptom = IOUtils.getString("Input Symptom (enter 0 to return): ");
+            String symptom = "";
+            while (bEmpty)
+            {
+                symptom = IOUtils.getString("Input Symptom (enter 0 to return): ");
+                if (symptom.trim().isEmpty())
+                {
+                    System.out.println("Input cannot be blank. Try again.");
+                }
+                else
+                {
+                    bEmpty = false;
+                }
+            }
             if (symptom.equals("0"))
             {
                 break;
@@ -231,10 +248,23 @@ public class Doctor extends Staff
     private void recordTreatments()
     {
         boolean bContinue = true;
+        boolean bEmpty = true;
         Admission pAdmission = currentPatient.getAdmission();
         while (bContinue)
         {
-            String treatment = IOUtils.getString("Input treatment (enter 0 to return): ");
+            String treatment = "";
+            while (bEmpty)
+            {
+                treatment = IOUtils.getString("Input treatment (enter 0 to return): ");
+                if (treatment.trim().isEmpty())
+                {
+                    System.out.println("Input cannot be blank. Try again.");
+                }
+                else
+                {
+                    bEmpty = false;
+                }
+            }
             if (treatment.equals("0"))
             {
                 break;
@@ -262,26 +292,39 @@ public class Doctor extends Staff
     private void recordLabTests()
     {
         boolean bContinue = true;
+        boolean bEmpty = true;
         Admission pAdmission = currentPatient.getAdmission();
         while (bContinue)
         {
-            String labTest = IOUtils.getString("Input Lab test name (enter 0 to return): ");
+            String result = "";
+            String labTest = "";
+            while (bEmpty)
+            {
+                labTest = IOUtils.getString("Input Lab test name (enter 0 to return): ");
+                if (labTest.trim().isEmpty())
+                {
+                    System.out.println("Input cannot be blank. Try again.");
+                }
+                else
+                {
+                    bEmpty = false;
+                }
+            }
             if (labTest.equals("0"))
             {
                 break;
             }
-            String result = "-";
-            boolean bEmpty = true;
+            bEmpty = true;
             while (bEmpty)
             {
                 result = IOUtils.getString("Input Lab test result: ");
-                if (!result.isEmpty())
+                if (result.trim().isEmpty())
                 {
-                    bEmpty = false;
+                    System.out.println("Input cannot be blank. Try again.");
                 }
                 else
                 {
-                    System.out.println("Result cannot be empty. Input again.");
+                    bEmpty = false;
                 }
             }
             pAdmission.addLabTest(labTest, result);
@@ -303,7 +346,20 @@ public class Doctor extends Staff
 
     private void recordDiagnosis()
     {
-        String diagnosis = IOUtils.getString("Enter patient's diagnosis : ");
+        boolean bEmpty = true;
+        String diagnosis = "";
+        while (bEmpty)
+        {
+            diagnosis = IOUtils.getString("Enter patient's diagnosis : ");
+            if (diagnosis.trim().isEmpty())
+            {
+                System.out.println("Input cannot be blank. Try again.");
+            }
+            else
+            {
+                bEmpty = false;
+            }
+        }
         currentPatient.getAdmission().setDiagnosis(diagnosis);
     }
 
@@ -313,10 +369,23 @@ public class Doctor extends Staff
     private void prescribe()
     {
         boolean bContinue = true;
+        boolean bEmpty = true;
         Admission pAdmission = currentPatient.getAdmission();
         while (bContinue)
         {
-            String medicine = IOUtils.getString("Input medicine (enter 0 to return): ");
+            String medicine = "";
+            while (bEmpty)
+            {
+                medicine = IOUtils.getString("Enter patient's diagnosis : ");
+                if (medicine.trim().isEmpty())
+                {
+                    System.out.println("Input cannot be blank. Try again.");
+                }
+                else
+                {
+                    bEmpty = false;
+                }
+            }
             if (medicine.equals("0"))
             {
                 break;
