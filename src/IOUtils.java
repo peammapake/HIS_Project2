@@ -1,7 +1,6 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /** 
  * Class that provides static functions for doing terminal input
@@ -10,6 +9,8 @@ import java.text.SimpleDateFormat;
  *  Updated comments, 30 Dec 2019
  *  Use to simplify Java lab exercises.
  *  Fixed bug in handline bare newline in getBareString - 18 Jan 2019
+ *  Edited by   Nonthakorn Sukprom 60070503435
+ *              Bhimapaka Thapanangkun 60070503447
  */
 public class IOUtils
 {

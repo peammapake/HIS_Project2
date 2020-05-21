@@ -2,6 +2,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * Collection class of patient hold all instance of Patient in system
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
+ */
 public class PatientList
 {
     /**Array list containing all instances of patients loaded*/
