@@ -53,19 +53,22 @@ public class Admission {
 
         String testString = admission.getString(12);
         String resultString = admission.getString(13);
-        String[] labTest = testString.split("\\|");
-        String[] labResult = resultString.split("\\|");
-        //Check in case some lab test or result incomplete
-        if(labTest.length == labResult.length)
+
+        if((testString!=null)&&(resultString!=null))
         {
-            for(int i = 0; i < labTest.length; i++)
+            String[] labTest = testString.split("\\|");
+            String[] labResult = resultString.split("\\|");
+            //Check in case some lab test or result is incomplete
+            if (labTest.length == labResult.length)
             {
-                addLabTest(labTest[i],labResult[i]);
-            }
+                for (int i = 0; i < labTest.length; i++)
+                {
+                    addLabTest(labTest[i], labResult[i]);
+                }
+            } else
+                System.out.println("Error: patientID: " + patientID
+                        + " Lab test list is incomplete, Please contact administrator for further inspection");
         }
-        else
-            System.out.println("Error: patientID: " + patientID
-                    + " Lab test list is incomplete, Please contact administrator for further inspection");
 
     }
 
@@ -77,19 +80,29 @@ public class Admission {
         System.out.println("Admit Datetime: " + admitDate);
         if(dischargeDate != null)
             System.out.println("Discharge Datetime: " + dischargeDate);
-        System.out.println("Condition Diagnosis: " + diagnosis);
-        System.out.println("Patient Symptoms: ");
-        for (String symptom: symptomList)
-            System.out.println("\t- " + symptom);
-        System.out.println("Lab Test and Result:");
-        for(LabTest lab: labTestList)
-            System.out.println("\t- " + lab.getLabTestName() + " : " + lab.getResult());
-        System.out.println("Treatment: ");
-        for(String treatment: treatmentList)
-            System.out.println("\t- " + treatment);
-        System.out.println("Medicine Prescription");
-        for (String prescription: prescriptionList)
-            System.out.println("\t- " + prescription);
+        if(diagnosis != null)
+            System.out.println("Condition Diagnosis: " + diagnosis);
+        if(symptomList != null)
+        {
+            System.out.println("Patient Symptoms: ");
+            for (String symptom : symptomList)
+                System.out.println("\t- " + symptom);
+        }
+        if(labTestList != null)
+        {
+            System.out.println("Lab Test and Result:");
+            for (LabTest lab : labTestList)
+                System.out.println("\t- " + lab.getLabTestName() + " : " + lab.getResult());
+            System.out.println("Treatment: ");
+            for (String treatment : treatmentList)
+                System.out.println("\t- " + treatment);
+            System.out.println("Medicine Prescription");
+        }
+        if(prescriptionList != null)
+        {
+            for (String prescription : prescriptionList)
+                System.out.println("\t- " + prescription);
+        }
         System.out.println("-----------------------------------------------------------------------------------");
     }
 
