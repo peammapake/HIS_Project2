@@ -200,6 +200,7 @@ public class Doctor extends Staff
         while (bContinue)
         {
             String symptom = "";
+            bEmpty = true;
             while (bEmpty)
             {
                 symptom = IOUtils.getString("Input Symptom (enter 0 to return): ");
@@ -244,6 +245,7 @@ public class Doctor extends Staff
         while (bContinue)
         {
             String treatment = "";
+            bEmpty = true;
             while (bEmpty)
             {
                 treatment = IOUtils.getString("Input treatment (enter 0 to return): ");
@@ -366,6 +368,7 @@ public class Doctor extends Staff
         while (bContinue)
         {
             String medicine = "";
+            bEmpty = true;
             while (bEmpty)
             {
                 medicine = IOUtils.getString("Enter patient's diagnosis : ");
