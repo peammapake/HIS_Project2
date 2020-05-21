@@ -3,6 +3,12 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+/**
+ * Class represent clerk in hospital information system
+ * handle billing information
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
+ */
 public class Clerk extends Staff
 {
     /**Arraylist containing all instances of unpaid bill*/

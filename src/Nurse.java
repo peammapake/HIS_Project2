@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 /**
  * Class represent nurse in hospital information system
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
  */
 public class Nurse extends Staff {
 

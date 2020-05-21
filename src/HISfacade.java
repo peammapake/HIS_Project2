@@ -6,7 +6,8 @@ import java.sql.SQLException;
  * a program aimed to implement an application that closely resemble real world HIS
  * HISfacade act as a facade class for the program and also the main face in interacting with user
  *
- * Create by YAKKIN_TONKATSU
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
  */
 public class HISfacade
 {
