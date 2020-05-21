@@ -388,9 +388,9 @@ public class DBManager
     }
 
     /**
-     *
-     * @param admission
-     * @return
+     * Insert new admission of a patient into database
+     * @param admission admission instance from the chosen patient
+     * @return status of whether the query success or not
      */
     public static boolean addAdmission(Admission admission)
     {
@@ -418,9 +418,9 @@ public class DBManager
     }
 
     /**
-     *
-     * @param admission
-     * @return
+     * Update admission with newly inserted information about the patient admission
+     * @param admission admission instance from the chosen patient
+     * @return status of whether the query success or not
      */
     public static boolean updateAdmission(Admission admission)
     {
@@ -446,8 +446,26 @@ public class DBManager
         return true;
     }
 
-    public static boolean dischargePatient(int admissionID, Timestamp)
+    /**
+     * Mark the patient admission as discharge in database
+     * The process is done by updating dischargeDate from null to discharge time
+     * @param admissionID
+     * @param date
+     * @return
+     */
+    public static boolean dischargePatient(int admissionID, Timestamp date)
     {
-        String query = "UPDATE admissions SET "
+        String query = "UPDATE admissions SET dischargeDate = ? WHERE admissionID = ?";
+        try
+        {
+            PreparedStatement preparedStmt = DB.prepareStatement(query);
+            preparedStmt.setTimestamp(1,date);
+            preparedStmt.setInt(2, admissionID);
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

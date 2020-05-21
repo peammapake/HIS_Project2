@@ -253,7 +253,7 @@ public class Doctor extends Staff
                 break loop1;
             if(index == -999)
                 continue loop1;
-            //DBManager.dischargePatient()
+            System.out.println("Confirm discharge patient []: ");
         }
     }
 
