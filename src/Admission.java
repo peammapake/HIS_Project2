@@ -187,11 +187,6 @@ public class Admission {
         return dischargeDate;
     }
 
-    /**
-     * Return list of symptom record in this admission as plain string
-     * separated by "|"
-     * @return  list of symptoms
-     */
     public String getSymptoms()
     {
         String symptoms = null;
