@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 /**
  *  Class represent Doctor in hospital information system
- *  Create by YAKKIN_TONKATSU group
+ *  Create by   Nonthakorn Sukprom 60070503435
+ *              Bhimapaka Thapanangkun 60070503447
  */
 public class Doctor extends Staff
 {
@@ -338,6 +339,9 @@ public class Doctor extends Staff
         }
     }
 
+    /**
+     * Ask for diagnosis record of the selected patient
+     */
     private void recordDiagnosis()
     {
         boolean bEmpty = true;

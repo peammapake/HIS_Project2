@@ -1,10 +1,15 @@
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Admission record of patient
+ * hold information of one certain admission of patient
+ * Create by   Nonthakorn Sukprom 60070503435
+ *             Bhimapaka Thapanangkun 60070503447
+ */
 public class Admission {
 
     /**ID of the current admission*/
@@ -91,6 +96,9 @@ public class Admission {
         this.doctorID = doctorID;
     }
 
+    /**
+     * Print out all information hold by this admission record
+     */
     public void printAdmission()
     {
         System.out.println("-----------------------------------------------------------------------------------");
@@ -162,16 +170,28 @@ public class Admission {
     }
 
     //Getter/Setter zone------------------------------------------------------------------------------------------------
+
+    /**
+     * @return admit date
+     */
     public Timestamp getAdmitDate()
     {
         return admitDate;
     }
 
+    /**
+     * @return discharge date
+     */
     public Timestamp getDischargeDate()
     {
         return dischargeDate;
     }
 
+    /**
+     * Return list of symptom record in this admission as plain string
+     * separated by "|"
+     * @return  list of symptoms
+     */
     public String getSymptoms()
     {
         String symptoms = null;
@@ -184,6 +204,11 @@ public class Admission {
         return symptoms;
     }
 
+    /**
+     * Return list of treatment record in this admission as plain string
+     * separated by "|"
+     * @return  list of treatment
+     */
     public String getTreatments()
     {
         String treatments = null;
@@ -196,6 +221,11 @@ public class Admission {
         return  treatments;
     }
 
+    /**
+     * Return list of lab test record in this admission as plain string
+     * separated by "|"
+     * @return  list of lab test
+     */
     public String getLabTests()
     {
         String labTests = null;
@@ -208,6 +238,11 @@ public class Admission {
         return  labTests;
     }
 
+    /**
+     * Return list of lab test result record in this admission as plain string
+     * separated by "|"
+     * @return  list of lab test result
+     */
     public String getLabResult()
     {
         String labResults = null;
@@ -220,6 +255,11 @@ public class Admission {
         return labResults;
     }
 
+    /**
+     * Return list of prescription record in this admission as plain string
+     * separated by "|"
+     * @return  list medicine in prescription
+     */
     public String getPrescriptions()
     {
         String prescriptions = null;
@@ -232,25 +272,36 @@ public class Admission {
         return prescriptions;
     }
 
+    /**
+     * @return diagnosis
+     */
     public String getDiagnosis()
     {
         return diagnosis;
     }
 
+    /**
+     * @return doctorID
+     */
     public int getAssignedDoctor()
     {
         return doctorID;
     }
 
+    /**
+     * @return patientID
+     */
     public int getPatientID()
     {
         return patientID;
     }
 
+    /**
+     * set diagnosis
+     * @param diagnosis new diagnosis
+     */
     public void setDiagnosis(String diagnosis)
     {
         this.diagnosis = diagnosis;
     }
-
-
 }

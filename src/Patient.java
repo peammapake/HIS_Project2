@@ -1,6 +1,11 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class represent Patient in hospital information system
+ * Create by   Nonthakorn Sukprom 60070503435
+               Bhimapaka Thapanangkun 60070503447
+ */
 public class Patient
 {
     /**Patient ID of the current patient*/
@@ -58,6 +63,10 @@ public class Patient
         this.phone = phone;
     }
 
+    /**
+     * Create new admission for the patient
+     * @param doctorID  ID of doctor who is assigned with this patient
+     */
     public void addAdmission(int doctorID)
     {
         admission = new Admission(doctorID, getPatientID());
@@ -189,8 +198,7 @@ public class Patient
     }
 
     /**
-     * ???????
-     * @return
+     * @return  patient's admission record
      */
     public Admission getAdmission()
     {

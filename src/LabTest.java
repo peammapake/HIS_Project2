@@ -18,11 +18,19 @@ public class LabTest
         this.result = result;
     }
 
+    /**
+     * getter method for labTestName attribute
+     * @return  labTestName
+     */
     public String getLabTestName()
     {
         return labTestName;
     }
 
+    /**
+     * getter method for result attribute
+     * @return  result
+     */
     public String getResult()
     {
         return result;
