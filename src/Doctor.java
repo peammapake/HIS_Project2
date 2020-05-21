@@ -176,6 +176,9 @@ public class Doctor extends Staff
         currentPatient.printPatientBasicInfo();
     }
 
+    /**
+     * Contact database to add new admission and print error if fail
+     */
     private void recordNewAdmission()
     {
         if(DBManager.addAdmission(currentPatient.getAdmission()))
@@ -184,6 +187,9 @@ public class Doctor extends Staff
             System.out.println("Error: Add new admission to database unsuccessful");
     }
 
+    /**
+     * Contact database to modify current patient admission and print error if fail
+     */
     private void recordModifyAdmission()
     {
         if(DBManager.updateAdmission(currentPatient.getAdmission()))
@@ -238,7 +244,16 @@ public class Doctor extends Staff
      */
     public void dischargePatient()
     {
-
+        System.out.println("-----------------------------------------------------------------------------------");
+        loop1: while(true)
+        {
+            int index = IOUtils.getInteger("Input patient index to discharge (0 to return): ");
+            if(index == 0)
+                break loop1;
+            if(index == -999)
+                continue loop1;
+            //DBManager.dischargePatient()
+        }
     }
 
 

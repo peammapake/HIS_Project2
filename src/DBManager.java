@@ -386,6 +386,11 @@ public class DBManager
         return RS;
     }
 
+    /**
+     *
+     * @param admission
+     * @return
+     */
     public static boolean addAdmission(Admission admission)
     {
         String query = "INSERT INTO admissions (diagnosis, symptoms, labTests, labResult, treatments, prescriptions, patientID, doctorID)"
@@ -438,5 +443,10 @@ public class DBManager
             return false;
         }
         return true;
+    }
+
+    public static boolean dischargePatient(int admissionID, Timestamp)
+    {
+        String query = "UPDATE admissions SET "
     }
 }
