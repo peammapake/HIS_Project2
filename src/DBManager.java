@@ -153,9 +153,29 @@ public class DBManager
      * Add new billing into the database, clerk can then access
      * these data to generate bill for patient
      * @param patient current patient to add bill for their admission
+     * @return return status whether the operation is successful or not
      */
     public static boolean addBill(Patient patient)
     {
+        Admission admission = patient.getAdmission();
+        String query = "INSERT INTO bills (bill_fName,bill_lName,patientID,treatmentList,labTestList,prescriptionList)"
+                + "values(?,?,?,?,?,?)";
+        try
+        {
+            PreparedStatement preparedStmt = DB.prepareStatement(query);
+            preparedStmt.setObject(1,patient.getFirstName());
+            preparedStmt.setObject(2,patient.getLastName());
+            preparedStmt.setObject(3,patient.getPatientID());
+            preparedStmt.setObject(4,admission.getTreatments());
+            preparedStmt.setObject(5,admission.getLabTests());
+            preparedStmt.setObject(6,admission.getPrescriptions());
+            preparedStmt.execute();
+            preparedStmt.close();
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 

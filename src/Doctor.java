@@ -73,6 +73,7 @@ public class Doctor extends Staff
                         continue mainMenu;
                     case 3:
                         showAdmissions();
+                        dischargePatient();
                         continue mainMenu;
                     case 4:
                         continue mainMenu;
@@ -258,12 +259,15 @@ public class Doctor extends Staff
             {
                 int admissionID = currentPatient.getAdmission().getAdmitID();
                 Timestamp time = new Timestamp(System.currentTimeMillis());
+                String fullName = currentPatient.getFirstName() + " " + currentPatient.getLastName();
                 if(DBManager.dischargePatient(admissionID,time))
-                    System.out.println("Successfully discharge patient at: " + time);
+                    System.out.println("Successfully discharge " + fullName + " at: " + time);
                 else
                     System.out.println("Error: Update discharge time on database unsuccessful");
                 if(DBManager.addBill(currentPatient))
-                    System.out.println("UNDERCONSTRUCTION");
+                    System.out.println("Successfully generate bill for " + fullName);
+                else
+                    System.out.println("Error: Insert new bill unsuccessful");
             }
         }
     }
