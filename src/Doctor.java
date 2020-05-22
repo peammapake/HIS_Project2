@@ -157,8 +157,13 @@ public class Doctor extends Staff
             index = IOUtils.getInteger("Choose patient by index (0 to return): ");
             if(index == -999)
                 continue loop;
-            if(index == 0)
+            if(index <= 0)
                 return false;
+            if(index > admitPatients.size())
+            {
+                System.out.println("Index out of range, please choose again");
+                continue loop;
+            }
             index--;
             currentPatient = admitPatients.get(index);
             break;
