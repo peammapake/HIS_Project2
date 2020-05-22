@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Class represent nurse in hospital information system
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */

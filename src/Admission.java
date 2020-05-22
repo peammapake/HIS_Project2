@@ -7,8 +7,9 @@ import java.util.Arrays;
 
 /**
  * Admission record of patient
- * hold information of one certain admission of patient
- * Create by   Nonthakorn Sukprom 60070503435
+ * hold information of one certain admission of a patient
+ * Group YakkinTonkatsu
+ * Created by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
 public class Admission {
@@ -44,7 +45,7 @@ public class Admission {
     private int doctorID;
 
     /**
-     * Constructor for admission using resultset given from database query
+     * Constructor for admission using ResultSet given from database query
      * @param admission ResultSet pointing at the row that needs for constructing new admission
      */
     public Admission(ResultSet admission) throws SQLException

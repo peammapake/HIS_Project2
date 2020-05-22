@@ -6,7 +6,8 @@ import java.util.ArrayList;
 /**
  * Class represent clerk in hospital information system
  * handle billing information
- * Create by   Nonthakorn Sukprom 60070503435
+ * Group YakkinTonkatsu
+ * Created by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
 public class Clerk extends Staff
@@ -17,9 +18,6 @@ public class Clerk extends Staff
     /**Arraylist containing all instances of paid bill*/
     private static ArrayList<Bill> paidBills = new ArrayList<Bill>();
 
-    /**Arraylist of all clerk*/
-    public static ArrayList<Clerk> clerkArrayList = new ArrayList<Clerk>();
-
     /**
      * Constructor method create instance of staff
      * use user information from database
@@ -29,7 +27,6 @@ public class Clerk extends Staff
     public Clerk(ResultSet userInfo) throws SQLException
     {
         super(userInfo);
-        clerkArrayList.add(this);
     }
 
     @Override
@@ -119,7 +116,7 @@ public class Clerk extends Staff
     /**
      * Display all unpaid bill with basic information with index to choose
      */
-    public void showUnpaidBills()
+    private void showUnpaidBills()
     {
         int index = 1;
         for(Bill bill: unpaidBills)
@@ -134,7 +131,7 @@ public class Clerk extends Staff
     /**
      * Display all paid bill with basic information and index to choose
      */
-    public void showPaidBills()
+    private void showPaidBills()
     {
         int index = 1;
         for(Bill bill: paidBills)

@@ -9,6 +9,8 @@ import java.util.Date;
  *  Updated comments, 30 Dec 2019
  *  Use to simplify Java lab exercises.
  *  Fixed bug in handline bare newline in getBareString - 18 Jan 2019
+ *
+ *  Group YakkinTonkatsu
  *  Edited by   Nonthakorn Sukprom 60070503435
  *              Bhimapaka Thapanangkun 60070503447
  */

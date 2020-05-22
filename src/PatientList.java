@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Collection class of patient hold all instance of Patient in system
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */

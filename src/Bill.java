@@ -7,7 +7,8 @@ import java.util.Arrays;
  * Bill is generated after the patient are discharged from admission
  * bill contains all services and product need to be paid by patient
  * in one certain admission
- * Create by   Nonthakorn Sukprom 60070503435
+ * Group YakkinTonkatsu
+ * Created by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
 public class Bill

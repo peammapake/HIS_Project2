@@ -6,6 +6,7 @@ import java.sql.SQLException;
  * a program aimed to implement an application that closely resemble real world HIS
  * HISfacade act as a facade class for the program and also the main face in interacting with user
  *
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
@@ -48,10 +49,19 @@ public class HISfacade
             e.printStackTrace();
         }
         System.out.println("Success!");
-        user.promptMenu();
-
+        try
+        {
+            user.promptMenu();
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }finally //Sever connection with the database in all cases
+        {
+            DBManager.disconnectDatabase();
+            System.exit(4);
+        }
         DBManager.disconnectDatabase();
-
+        System.exit(0);
     }
 
     /**

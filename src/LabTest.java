@@ -1,6 +1,7 @@
 /**
  * This class hold information of one lab test
  * lab test name and its result
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */

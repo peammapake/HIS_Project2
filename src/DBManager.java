@@ -4,6 +4,7 @@ import java.util.ArrayList;
 /**
  * Database Manager class responsible for all communication
  * with the Hospital Information Database
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
@@ -99,11 +100,9 @@ public class DBManager
         {
             e.printStackTrace();
         }
-
         //If user not found return null, this mean the username or password might be wrong
         if(count == 0)
         {
-
             return null;
         }
         return RS;

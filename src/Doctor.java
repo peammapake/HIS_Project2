@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  *  Class represent Doctor in hospital information system
+ *  Group YakkinTonkatsu
  *  Create by   Nonthakorn Sukprom 60070503435
  *              Bhimapaka Thapanangkun 60070503447
  */
@@ -15,9 +16,6 @@ public class Doctor extends Staff
 
     private ArrayList<Patient> admitPatients = new ArrayList<Patient>();
 
-    /** Static list of doctors in the system*/
-    public static ArrayList<Doctor> doctorArrayList = new ArrayList<>();
-
     /**
      * Constructor method create instance of doctor
      * use staff information from database
@@ -27,7 +25,6 @@ public class Doctor extends Staff
     public Doctor(ResultSet userInfo) throws SQLException
     {
         super(userInfo);
-        doctorArrayList.add(this);
     }
 
     /**
@@ -208,7 +205,7 @@ public class Doctor extends Staff
     /**
      * Discharge currently selected patient from the system
      */
-    public void dischargePatient()
+    private void dischargePatient()
     {
         System.out.println("-----------------------------------------------------------------------------------");
         loop1: while(true)
@@ -488,21 +485,4 @@ public class Doctor extends Staff
         }
     }
 
-    /**
-     * Method return list of Doctor in the system
-     * @return  doctorList  ArrayList of Doctor
-     */
-    public static ArrayList<Doctor> getDoctorList()
-    {
-        return doctorArrayList;
-    }
-
-    /**
-     * Method return current selected patient of doctor
-     * @return  currentPatient      Patient currently selected by this doctors
-     */
-    public Patient getCurrentPatient()
-    {
-        return currentPatient;
-    }
 }

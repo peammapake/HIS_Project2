@@ -4,6 +4,7 @@ import java.sql.SQLException;
 /**
  * Class represent patient in hospital information system
  * hold information of patient and instance of admission record
+ * Group YakkinTonkatsu
  * Create by   Nonthakorn Sukprom 60070503435
  *             Bhimapaka Thapanangkun 60070503447
  */
