@@ -23,9 +23,6 @@ public abstract class Staff
     /** The role of the staff*/
     protected String role;
 
-    /** static List of every staff */
-    static protected ArrayList<Staff> staffArrayList = new ArrayList<Staff>();
-
     /**
      * Constructor method create instance of staff
      * use user information from database
