@@ -453,6 +453,8 @@ public class DBManager
             PreparedStatement preparedStmt = DB.prepareStatement(query);
             preparedStmt.setTimestamp(1,date);
             preparedStmt.setInt(2, admissionID);
+            preparedStmt.executeUpdate();
+            preparedStmt.close();
         } catch (SQLException e)
         {
             e.printStackTrace();

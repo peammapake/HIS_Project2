@@ -147,6 +147,11 @@ public class Doctor extends Staff
         }
     }
 
+    /**
+     * Method to let user choose admitted patient to focus on
+     * and making further operations
+     * @return status whether user choose a patient or cancel
+     */
     private boolean chooseAdmittedPatient()
     {
         loop: while(true)
@@ -201,6 +206,35 @@ public class Doctor extends Staff
     }
 
     /**
+     * Discharge currently selected patient from the system
+     */
+    public void dischargePatient()
+    {
+        System.out.println("-----------------------------------------------------------------------------------");
+        loop1: while(true)
+        {
+            if(!chooseAdmittedPatient())
+                break loop1;
+            String confirm = IOUtils.getStringSameLine("Confirm discharge patient [YES/NO]: ");
+            if(confirm.equalsIgnoreCase("YES"))
+            {
+                int admissionID = currentPatient.getAdmission().getAdmitID();
+                Timestamp time = new Timestamp(System.currentTimeMillis());
+                String fullName = currentPatient.getFirstName() + " " + currentPatient.getLastName();
+                if(DBManager.dischargePatient(admissionID,time))
+                    System.out.println("Successfully discharge " + fullName + " at: " + time);
+                else
+                    System.out.println("Error: Update discharge time on database unsuccessful");
+                if(DBManager.addBill(currentPatient))
+                    System.out.println("Successfully generate bill for " + fullName);
+                else
+                    System.out.println("Error: Insert new bill unsuccessful");
+            }
+            break;
+        }
+    }
+
+    /**
      *  Sub menu for record information to selected patient record
      */
     private void recordInformation()
@@ -240,38 +274,6 @@ public class Doctor extends Staff
             }
         }
     }
-
-    /**
-     * Discharge currently selected patient from the system
-     */
-    public void dischargePatient()
-    {
-        System.out.println("-----------------------------------------------------------------------------------");
-        loop1: while(true)
-        {
-            int index = IOUtils.getInteger("Input patient index to discharge (0 to return): ");
-            if(index == 0)
-                break loop1;
-            if(index == -999)
-                continue loop1;
-            String confirm = IOUtils.getStringSameLine("Confirm discharge patient [YES/NO]: ");
-            if(confirm.equalsIgnoreCase("YES"))
-            {
-                int admissionID = currentPatient.getAdmission().getAdmitID();
-                Timestamp time = new Timestamp(System.currentTimeMillis());
-                String fullName = currentPatient.getFirstName() + " " + currentPatient.getLastName();
-                if(DBManager.dischargePatient(admissionID,time))
-                    System.out.println("Successfully discharge " + fullName + " at: " + time);
-                else
-                    System.out.println("Error: Update discharge time on database unsuccessful");
-                if(DBManager.addBill(currentPatient))
-                    System.out.println("Successfully generate bill for " + fullName);
-                else
-                    System.out.println("Error: Insert new bill unsuccessful");
-            }
-        }
-    }
-
 
     /**
      * Record information about symptom of selected patient
