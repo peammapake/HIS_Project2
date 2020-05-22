@@ -16,8 +16,6 @@ public class Nurse extends Staff {
     /**List of all available doctor*/
     private ArrayList<Doctor> doctorList = null;
 
-    /**Static list of nurse in system*/
-    public static ArrayList<Nurse> nurseArrayList = new ArrayList<Nurse>();
 
     /**
      * Constructor method create instance of nurse
@@ -27,7 +25,6 @@ public class Nurse extends Staff {
      */
     public Nurse(ResultSet userInfo) throws SQLException {
         super(userInfo);
-        nurseArrayList.add(this);
     }
 
     @Override

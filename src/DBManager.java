@@ -41,6 +41,7 @@ public class DBManager
         } catch (ClassNotFoundException | SQLException e)
         {
             e.printStackTrace();
+            System.exit(2);
         }
     }
 
