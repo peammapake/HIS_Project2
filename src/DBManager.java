@@ -23,7 +23,7 @@ public class DBManager
     public static void connectDatabase()
     {
         //DO NOT CHANGE: responsible for database login
-        String url = "jdbc:mysql://remotemysql.com:3306/gRDM5lyOKB";
+        String url = "jdbc:mysql://remotemysql.com:3306/gRDM5lyOKB"+"?autoReconnect=true&useSSL=false";
         String user = "gRDM5lyOKB";
         String pwd = "zTKv1VSG7W";
         try
