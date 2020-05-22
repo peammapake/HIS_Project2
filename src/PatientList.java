@@ -13,9 +13,6 @@ public class PatientList
     /**Array list containing all instances of patients loaded*/
     private static ArrayList<Patient> patients = null;
 
-    /**ArrayList containing all instances of patients currently waiting in queue of the specific doctor*/
-    //private static ArrayList<Patient> queuePatients = new ArrayList<Patient>();
-
     /**
      * Initialize query all patient from the database
      * @param patientRS ResultSet of all query patients
@@ -28,7 +25,6 @@ public class PatientList
             addPatient(new Patient(patientRS,false));
         }
     }
-
 
     /**
      * Add new patient to the arraylist
@@ -74,24 +70,6 @@ public class PatientList
             return false;
         patients.remove(index);
         return true;
-    }
-
-
-    /**
-     * Method to find patient from the ArrayList by their ID
-     * Not efficient and might take long if size gets bigger
-     * @param id
-     * @return
-     */
-    public static Patient findPatientByID(int id)
-    {
-        for(Patient patient: patients)
-        {
-            int patientID = patient.getPatientID();
-            if(id == patientID)
-                return patient;
-        }
-        return null;
     }
 
     /**
